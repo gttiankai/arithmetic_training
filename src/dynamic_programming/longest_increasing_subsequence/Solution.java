@@ -8,7 +8,6 @@ public class Solution {
      * 例如: [10,9,2,5,3,7,101,18] 输出结果是:4
      *
      * */
-
     public static int longestNumber(int[] nums) {
         if (nums == null) {
             return 0;
