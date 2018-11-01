@@ -50,7 +50,7 @@ public class Solution {
         for (char c : s.toCharArray()) {
             rows.get(curRow).append(c);
             /**
-             * 非常精妙的设计,是goingdown 是判断是垂直方向上(Y轴)是往上还是往下.
+             * 非常精妙的设计,是going down 是判断是垂直方向上(Y轴)是往上还是往下.
              * */
             if (curRow == 0 || curRow == numRows - 1) {
                 goingDown = !goingDown;
