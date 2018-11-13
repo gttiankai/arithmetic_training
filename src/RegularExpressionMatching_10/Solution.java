@@ -54,7 +54,7 @@
 package RegularExpressionMatching_10;
 
 public class Solution {
-    public static boolean isMatch(String s, String p) {
+    public static boolean isMatchOlder(String s, String p) {
         if (s == null || p == null) {
             return false;
         }
@@ -82,6 +82,31 @@ public class Solution {
         }// end of outer loop
         return false;
     }
+
+    public static boolean isMatch(String text, String pattern) {
+        if (pattern.isEmpty()) {
+            return true;
+        }
+
+        boolean firstMatch = (!text.isEmpty() &&
+                (pattern.charAt(0) == text.charAt(0)
+                        || pattern.charAt(0) == '.'));
+        if (pattern.length() >= 2 && pattern.charAt(1) == '*') {
+            return (isMatch(text, pattern.substring(2)) ||
+                    (firstMatch && isMatch(text.substring(1), pattern)));
+        } else {
+            return firstMatch && isMatch(text.substring(1), pattern.substring(1));
+        }
+
+    }
+
+
+    /* *
+    * 看题目中可以通过 DP 的思路去解决，思考一下
+    *
+    *
+    *
+    * */
 
     public static void main(String[] arguments) {
 //        String s = "mississippi";
