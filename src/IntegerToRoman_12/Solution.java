@@ -51,13 +51,60 @@ Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 
 package IntegerToRoman_12;
 
+import org.w3c.dom.CDATASection;
+
 import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Solution {
-    // TODO
+    // 这个方法完全的是错误的，只是考虑了单个值的判断
+    public static String intToRomanOlder(int num) {
 
-    public static String intToRoman(int num) {
         // 创建字典
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("1", "I");
+        map.put("5", "V");
+        map.put("10", "X");
+        map.put("50", "L");
+        map.put("100", "C");
+        map.put("500", "D");
+        map.put("1000", "M");
+
+        map.put("4", "IV");
+        map.put("9", "IX");
+        map.put("40", "XL");
+        map.put("90", "XC");
+        map.put("400", "CD");
+        map.put("900", "CM");
+
+
+        int[] values = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        String[] strs = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        StringBuilder result = new StringBuilder();
+        //  按照降序进行排列，然后进行
+        for (int i = 0; i < values.length; i++) {
+            while (num  > values[i]) {
+                num -= values[i];
+                result.append(strs[i]);
+            }
+        }
+        return result.toString();
+    }
+
+    /* *
+    *
+    * 这种方式非常巧妙的实现了对罗马数字转换
+    * */
+    public static String intToRoman(int num) {
+        if (num < 1 || num > 3999) {
+            return null;
+        }
+        String[] M = {"","M", "MM", "MMM"};
+        String[] C = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+        String[] X = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+        String[] I = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+        return M[num / 1000] + C[(num%1000) /100] + X[((num%1000)%100)/10] + I[((num%1000)%100)%10];
     }
 
     public static void main(String[] arguments) {
