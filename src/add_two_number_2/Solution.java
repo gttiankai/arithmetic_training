@@ -21,7 +21,7 @@
  *
  * **/
 
-package add_two_number_2;
+package  add_two_number_2;
 
 import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 
