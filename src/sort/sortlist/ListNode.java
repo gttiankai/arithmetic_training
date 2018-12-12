@@ -1,4 +1,4 @@
-package MergeTwoSortedLists_21;
+package sort.sortlist;
 
 public class ListNode {
     int val;

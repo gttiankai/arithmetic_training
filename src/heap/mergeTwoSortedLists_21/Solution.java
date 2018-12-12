@@ -10,7 +10,7 @@
  *
  * */
 
-package MergeTwoSortedLists_21;
+package heap.mergeTwoSortedLists_21;
 
 public class Solution {
 

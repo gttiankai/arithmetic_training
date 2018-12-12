@@ -107,7 +107,7 @@ public class Solution {
                 int sum =  nums[low] + nums[hight];
                 if (target == sum) {
                     //这种方式是非常耗时的，只要进行了 contains 操作，就会出现超时的问题，所以不能使用这个函数
-//                    List<Integer> item= Arrays.asList(nums[i], nums[low], nums[hight]);
+//                    list<Integer> item= Arrays.asList(nums[i], nums[low], nums[hight]);
 //                    if (!res.contains(item)){
 //                        res.add(item);
 //                    }
