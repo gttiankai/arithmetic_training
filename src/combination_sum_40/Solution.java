@@ -36,5 +36,6 @@ public class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         // TODO
         // 目前尝试使用了hash表以及有序数组,好像都不符合需求,还要想办法
+        return null;
     }
 }
