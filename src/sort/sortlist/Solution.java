@@ -10,7 +10,6 @@ public class Solution {
     public ListNode heapSort(ListNode head) {
         return null;
     }
-
     public ListNode sortList(ListNode head) {
         return heapSort(head);
     }
