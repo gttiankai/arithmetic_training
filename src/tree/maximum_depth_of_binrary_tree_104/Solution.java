@@ -19,18 +19,20 @@
  * return its depth = 3.
  * */
 
-package tree.maximum_depth_of_binrary_tree;
+package tree.maximum_depth_of_binrary_tree_104;
 
 public class Solution {
     /**
      *  最直观的想法是使用回溯的方式,然后找出深度最大的路径
+     *
+     *  准确的说法是使用递归的方式,就可以直接获取到深度.
+     *
+     *  个人感觉求取树的深度可以后面的一个基础的功能.
      **/
     public int maxDepth(TreeNode root) {
-
-    }
-    public int backTrace(TreeNode node) {
-        if (node == null) {
+        if (root == null) {
             return 0;
         }
+        return Math.max(maxDepth(root.left)+1, maxDepth(root.right) + 1);
     }
 }
