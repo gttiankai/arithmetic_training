@@ -13,6 +13,7 @@ public class Solution {
     /**
      * Runtime: 0 ms, faster than 100.00% of Java online submissions for Reverse Linked List.
      * congratulations
+     * 使用迭代法
      */
 
     public ListNode reverseList(ListNode head) {
@@ -36,6 +37,12 @@ public class Solution {
 
     /**
      * 这个题目想起来还是有点难想的
+     *
+     * 这个就要使用递归法了.
+     *
+     * 通过这个题目发现,递归并不一定比迭代从思路上来看来的简单.这个题目明天递归的思路更难想一点.
+     *
+     * 但是递归和迭代,还是想伴随而生的.
      */
     public ListNode reverseListReverse(ListNode head) {
         if (head == null || head.next == null) {
