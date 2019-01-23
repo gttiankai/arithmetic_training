@@ -7,7 +7,7 @@ import java.util.Stack;
  * 学了一种非常好的奇技淫巧
  * <p>
  * 使用差值的方式
- *
+ * <p>
  * 这种方式有一个不好的地方,就是 long类型的设定,因为涉及到加减法操作,所以如果是在int值的最大值的时候,就会出现问题
  */
 public class MinStack2 {
