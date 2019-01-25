@@ -40,10 +40,15 @@ import java.util.List;
 public class Solution {
     /**
      * 最终这个方案是可以的,但是由于输入的用例太多,造成 leetcode 的 Memory Limit Exceeded.
-     * 这个方案还需要优化
+     * 这个方案还需要优化.
+     * 优化的地方是通过没有必要使用 res 这个属性存储数据
      * */
-    private static List<List<Integer>> res = new ArrayList<>();
-    public static int pathSum(TreeNode root, int sum) {
+    private static int count = 0;
+
+    // 优化掉
+    //private static List<Integer> res = new ArrayList<>();
+
+    public static int pathSumOwner(TreeNode root, int sum) {
         if (null == root) {
             return 0;
         }
@@ -51,7 +56,7 @@ public class Solution {
 
         travel(root, sum);
         // 问题就出在这一行代码中.这个地方不能返回
-        return res.size();
+        return count;
     }
     private static void travel(TreeNode root, int sum) {
         System.out.println("" + root.val);
@@ -70,8 +75,9 @@ public class Solution {
         }
         tmpList.add(node.val);
         if (sum - node.val == 0) {
-            res.add(new ArrayList<>(tmpList));
-            //return;
+            // 优化掉
+            //res.add(node.val);
+            count++;
         }
 
         if (node.left != null) {
@@ -83,6 +89,24 @@ public class Solution {
             tmpList.remove(tmpList.size()-1);
         }
     }
+
+    public static int pathSum(TreeNode root, int sum){
+        if (null == root) {
+            return 0;
+        }
+        // 这个里面还包含一个先序遍历的的操作
+        return dfs(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
+    }
+    private static int dfs(TreeNode node, int sum) {
+        if (null == node) {
+            return 0;
+        }
+        // 这一行代码是关键点:
+        // 即使已经匹配了,还是要继续搜索,以保证其他情况的成立
+        int res = (node.val == sum? 1 : 0) + dfs(node.left, sum - node.val) + dfs(node.right, sum - node.val);
+        return res;
+    }
+
     public static void main(String[] argument) {
 //
 //        TreeNode node5 = new TreeNode(5);
