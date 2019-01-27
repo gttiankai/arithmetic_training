@@ -66,6 +66,5 @@ public class Solution {
         }
         // substring 是左闭右开区间
         return s.substring(head, head+minLen);
-
     }
 }
