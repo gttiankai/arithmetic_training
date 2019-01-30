@@ -21,26 +21,64 @@ package tree.diameter_of_binary_tree_543;
 
 import tree.TreeNode;
 
-public class Solution {
+public class
+Solution {
+    private int maxDiameter = 0;
     public int diameterOfBinaryTree(TreeNode root) {
         int max = 0;
         if (root == null) {
             return max;
         }
+        preOrder(root);
+        return maxDiameter;
     }
-    public int diameterOfNode(TreeNode node) {
+    public void preOrder(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        maxDiameter = Math.max(maxDiameter, diameter(node));
+        if (node.left != null) {
+            preOrder(node.left);
+        }
+        if (node.right != null) {
+            preOrder(node.right);
+        }
+    }
+    public int diameter(TreeNode node) {
         int diameter = 0;
         if (node == null) {
             return diameter;
         }
-        return diameterOfNode(node.left) + diameterOfNode(node.right);
+        int leftDepth = maxDepth(node.left);
+        int rightDepth = maxDepth(node.right);
+        /**
+         * 求当前节点的时候,是不需要额外的+1的,这是因为根据定义,当前节点的值就是通过左右子树最大深度相加
+         * diameter = leftDepth + rightDepth + 1;
+         *
+         * */
+        diameter = leftDepth + rightDepth ;
+        return diameter;
     }
-    public int depth(TreeNode node) {
-        int depth = 0;
+    public int maxDepth(TreeNode node) {
         if (node == null) {
             return 0;
         }
-        if (node.left != null) {
-        }
+        return Math.max(maxDepth(node.left) + 1, maxDepth(node.right) +1);
+    }
+
+    public static void main(String[] arguments) {
+        Solution solution = new Solution();
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(5);
+        node1.left = node2;
+        node1.right = node3;
+
+        node2.left = node4;
+        node2.right = node5;
+        System.out.printf("" + solution.diameterOfBinaryTree(node1));
+
     }
 }
