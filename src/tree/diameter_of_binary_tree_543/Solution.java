@@ -24,6 +24,13 @@ import tree.TreeNode;
 public class
 Solution {
     private int maxDiameter = 0;
+    /**
+     * 目前感觉这个算法,还是可以优化的,主要的优化点就是在preOrder这个算法中,
+     * 原因是 up to down进行计算.
+     * 要想办法变成直接处理down-to-up的方式,有效利用以前的计算结果.
+     *
+     * TODO: need tp op
+     * */
     public int diameterOfBinaryTree(TreeNode root) {
         int max = 0;
         if (root == null) {
