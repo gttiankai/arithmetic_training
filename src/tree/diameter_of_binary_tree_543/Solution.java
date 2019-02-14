@@ -21,71 +21,43 @@ package tree.diameter_of_binary_tree_543;
 
 import tree.TreeNode;
 
-public class
-Solution {
-    private int maxDiameter = 0;
+public class Solution {
+    public int max = 0;
     /**
-     * 目前感觉这个算法,还是可以优化的,主要的优化点就是在preOrder这个算法中,
-     * 原因是 up to down进行计算.
-     * 要想办法变成直接处理down-to-up的方式,有效利用以前的计算结果.
+     * 直接将问题分解,然后就可以解决这个问题.
+     * 一开始解决不了的原因是混淆了diameter和depth的区别, 没有分的特别清楚.
      *
-     * TODO: need tp op
      * */
     public int diameterOfBinaryTree(TreeNode root) {
-        int max = 0;
         if (root == null) {
             return max;
         }
         preOrder(root);
-        return maxDiameter;
+        return max;
     }
-    public void preOrder(TreeNode node) {
-        if (node == null) {
-            return;
+    public void preOrder(TreeNode root) {
+        if (root == null) {
+            return ;
         }
-        maxDiameter = Math.max(maxDiameter, diameter(node));
-        if (node.left != null) {
-            preOrder(node.left);
+        int diameter = diameterOfNode(root);
+        if (diameter > max) {
+            max = diameter;
         }
-        if (node.right != null) {
-            preOrder(node.right);
-        }
+        preOrder(root.left);
+        preOrder(root.right);
     }
-    public int diameter(TreeNode node) {
+
+    public int diameterOfNode(TreeNode node) {
         int diameter = 0;
         if (node == null) {
             return diameter;
         }
-        int leftDepth = maxDepth(node.left);
-        int rightDepth = maxDepth(node.right);
-        /**
-         * 求当前节点的时候,是不需要额外的+1的,这是因为根据定义,当前节点的值就是通过左右子树最大深度相加
-         * diameter = leftDepth + rightDepth + 1;
-         *
-         * */
-        diameter = leftDepth + rightDepth ;
-        return diameter;
+        return depth(node.left) + depth(node.right);
     }
-    public int maxDepth(TreeNode node) {
+    public int depth(TreeNode node) {
         if (node == null) {
             return 0;
         }
-        return Math.max(maxDepth(node.left) + 1, maxDepth(node.right) +1);
-    }
-
-    public static void main(String[] arguments) {
-        Solution solution = new Solution();
-        TreeNode node1 = new TreeNode(1);
-        TreeNode node2 = new TreeNode(2);
-        TreeNode node3 = new TreeNode(3);
-        TreeNode node4 = new TreeNode(4);
-        TreeNode node5 = new TreeNode(5);
-        node1.left = node2;
-        node1.right = node3;
-
-        node2.left = node4;
-        node2.right = node5;
-        System.out.printf("" + solution.diameterOfBinaryTree(node1));
-
+        return Math.max(depth(node.left), depth(node.right)) + 1;
     }
 }
