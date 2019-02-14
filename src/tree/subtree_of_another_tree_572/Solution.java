@@ -48,7 +48,8 @@ import java.util.HashSet;
 
 public class Solution {
     /**
-     * 第一次尝试失败了,不好处理特殊情况
+     * 第一次尝试失败了,不好处理特殊情况.
+     *
      * */
     public boolean isSubtreeFailed(TreeNode s, TreeNode t) {
         // 由于题目中已经设定了 s 和 t 是非空的,所以不需要再进行 check
@@ -83,7 +84,7 @@ public class Solution {
      *
      * // TODO:
      * */
-    HashSet< String > trees = new HashSet < > ();
+    HashSet< String > trees = new HashSet <>();
 
     public boolean isSubtree(TreeNode s, TreeNode t) {
         String tree1 = preOrder(s, true);
