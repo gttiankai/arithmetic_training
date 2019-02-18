@@ -126,6 +126,11 @@ public class Solution {
 
     }
 
+    /**
+     * 这个题目
+     *
+     *
+     * */
     public int findUnsortedSubarrayStack(int[] nums) {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
@@ -148,11 +153,13 @@ public class Solution {
             }
         }
         int l, r;
+        // 找到乱序的子数组中第一个元素应该在的位置
         for (l = 0; l < nums.length; l++) {
             if (min < nums[l]) {
                 break;
             }
         }
+        // 找到乱序的子数组中最后一个元素的应该在的位置
         for (r = nums.length - 1; r >= 0; r--) {
             if (max > nums[r]) {
                 break;
