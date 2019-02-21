@@ -36,15 +36,17 @@ package search.course_schedule_207;
 import java.util.*;
 
 public class Solution {
-    //
+    /**
+     * 这个思路和我的思路是一致的，但是这个方式，别人做出来了。欠缺的点是没有理解清楚
+     */
+
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         ArrayList[] graph = new ArrayList[numCourses];
+        boolean[] visited = new boolean[numCourses];
 
         for (int i = 0; i < numCourses; i++) {
             graph[i] = new ArrayList();
         }
-
-        boolean[] visited = new boolean[numCourses];
         for (int i = 0; i < prerequisites.length; i++) {
             graph[prerequisites[i][1]].add(prerequisites[i][0]);
         }
@@ -68,6 +70,7 @@ public class Solution {
                 return false;
             }
         }
+        // 经过上面的递归的遍历，还没有覆盖， 则这个就是错误的。
         visited[course] = false;
         return true;
     }
@@ -75,6 +78,7 @@ public class Solution {
 
     /**
      * 讲真的，这个算法有点看不懂，所以后面需要加强
+     * 今天恍然大悟，这个算法讲的是BFS，并不是DFS。
      * */
     public boolean canFinishF(int numCourses, int[][] prerequisites) {
         int[][] matrix = new int[numCourses][numCourses];
