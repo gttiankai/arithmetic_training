@@ -52,7 +52,7 @@ public class Solution {
         if (stack1.size() == 0 || stack2.size() == 0) {
             return null;
         }
-        if (!stack1.isEmpty()) {
+        while (!stack1.isEmpty()) {
             int temp = stack1.pop();
             if (stack2.contains(temp)) {
                 return new TreeNode(temp);
