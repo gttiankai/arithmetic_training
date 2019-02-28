@@ -15,6 +15,8 @@
  * */
 package dynamic_programming.perfect_square_279;
 
+import java.util.*;
+
 public class Solution {
 
     /**
@@ -44,7 +46,7 @@ public class Solution {
      *  i: 是 sum,也就是需要求 perfect square的 正整数
      *  dp[i] 是要求的 perfect square 的数目
      *
-     *  dp[i] = min(dp[i - j^2]) 其中 j 是从 1 到 (j^2 <= i)
+     *  dp[i] = min{  dp[i - j^2] | 其中 j 是从 1 到 (j^2 <= i) }
      * */
     public int numSquaresdp(int n) {
         if (n <= 0) {
@@ -63,9 +65,64 @@ public class Solution {
         }
         return dp[n];
     }
+    /**
+     *  这个方法目前只适用于C++，并不适合于Java
+     */
+    public int numSquaresStaticdp(int n ) {
+        if ( n <= 0) {
+            return 0;
+        }
+        List<Integer> dp = new ArrayList<>();
+        while (dp.size() <= n) {
+            int m = dp.size();
+            if (m == 0) {
+                dp.add(0);
+            } else {
+                int currentSquare = Integer.MAX_VALUE;
+                for (int i = 0; i * i <= m; i++) {
+                    currentSquare = Math.min(currentSquare, dp.get(m - i*i) + 1);
+                }
+                dp.add(currentSquare);
+            }
+
+        }
+        return dp.get(n);
+    }
+
+    /**
+     * 个人感觉BFS的算法，有点太复杂，而且性能也不好，所以先不学习了，先放在这边。
+     * */
+    public int numSquaresBFS(int n) {
+        if (n <= 0) {
+            return 0;
+        }
+        Stack<Integer> stack = new Stack<>();
+        int[] cntPerfectSquares = new int[n];
+        for (int i = 0; i*i < n; i++) {
+            stack.add(i*i);
+            cntPerfectSquares[i*i - 1] = 1;
+        }
+        if (stack.peek() == n) {
+            return 1;
+        }
+        Queue<Integer> queue = new LinkedList<Integer>();
+        for (Integer item:stack) {
+            queue.offer(item);
+        }
+        int currCntPerfectSquares = 1;
+        // BFS
+        while (!queue.isEmpty()) {
+            currCntPerfectSquares++;
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+
+            }
+        }
+        return 0;
+    }
 
     public static void main(String[] arguments) {
         Solution solution = new Solution();
-        System.out.printf("" + solution.numSquaresdp(12));
+        System.out.printf("" + solution.numSquaresStaticdp(12));
     }
 }
