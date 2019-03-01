@@ -25,15 +25,49 @@
  * Explanation: There is no cycle in the linked list.
  * */
 
-package list.Linked_list_cycle_2_142;
+package list.linked_list_cycle_2_142;
 
 import list.ListNode;
 
-public class Solution {
-    public ListNode detectCycle(ListNode head) {
-        if (head == null) {
-            return null; 
-        }
+import java.util.HashSet;
 
+public class Solution {
+    // 这个方法直接可以了,从141的思路上来的.
+    public ListNode detectCycle(ListNode head) {
+        HashSet<ListNode> set = new HashSet<>();
+        while (head != null) {
+            if (!set.contains(head)) {
+                set.add(head);
+                head = head.next;
+            }else {
+                return head;
+            }
+        }
+        return null;
     }
+    /**
+     * 使用 Floyd 判圈算法
+     *
+     * */
+    public ListNode detectCycleFloyd(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        do {
+            if (slow ==  null || fast == null || fast.next == null) {
+                return null;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        } while (slow != fast);
+        slow = head;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
+    
 }

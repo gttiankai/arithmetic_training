@@ -33,18 +33,35 @@ public class Solution {
      *      如果抛开上面的限制，其实有很多好的解法
      *      1. 排序法
      *      2. 集合法，或者Hash冲突发，都可以的。
+     *
+     * 这个只能用一种算法解决:Floyd 判圈算法.
+     * 这个算法可以用于三个方面:
+     *      1. 判断链表中是否有环
+     *      2. 求链表中环的长度
+     *      3. 求链表中环的起点
+     *
+     *TODO: 关于 Floyd判圈算法,可以写一篇博客,并且将相关的问题,可以都做一遍.
      * */
     public int findDuplicate(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        int sum = 0;
-        int n = nums.length-1;
-        for (Integer item: nums) {
-            sum = sum + item;
+        int slow = nums[0];
+        int fast = nums[0];
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+            if (slow == fast) {
+                break;
+            }
+        } while (true);
+
+        slow = nums[0];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
         }
-        int res = sum - n*(n-1)/2;
-        return res;
+        return slow;
     }
 
 }
