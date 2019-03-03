@@ -34,16 +34,69 @@
 
 package tree.serialize_and_deserialize_binary_tree_297;
 
+import heap.sliding_window_maximum_239.Solution;
 import tree.TreeNode;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Codec {
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        StringBuilder result = new StringBuilder();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.offer(root);
+        while (queue.size() != 0) {
+            TreeNode node = queue.poll();
+            if (node == null) {
+                result.append("null,");
+            }else {
+                result.append(node.val+",");
+                queue.offer(node.left);
+                queue.offer(node.right);
+            }
+        }
+        System.out.printf("" + result.toString());
+        return result.toString();
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
+        if (data == null) {
+            return null;
+        }
+        String[] list = data.split(",");
+        TreeNode head = new TreeNode(Integer.valueOf(list[0]));
+        TreeNode pointer = head;
+        for (int i = 0; i < list.length; i++) {
+            TreeNode node;
+            if (!list[1].equals("null")) {
+                node = new TreeNode(Integer.valueOf(list[i]));
+            }else {
+                node = null;
+            }
 
+        }
+        return null;
+    }
+
+    public static void main(String[] arguments) {
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(5);
+
+        node1.left = node2;
+        node1.right = node3;
+        node3.left = node4;
+        node3.right = node5;
+        Codec codec = new Codec();
+        String str  = codec.serialize(node1);
+        codec.deserialize(str);
     }
 }
 
