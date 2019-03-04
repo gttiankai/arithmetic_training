@@ -22,7 +22,6 @@
  * */
 package tree.binary_tree_level_Order_traversal_102;
 
-import list.ListNode;
 import tree.TreeNode;
 
 import java.util.ArrayList;
@@ -39,7 +38,21 @@ public class Solution {
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.offer(root);
         while (queue.size() != 0) {
+            // 很聪明的做法，使用levelNumber变量就解决了这个问题。
+            // 一定要记住
+            int levelNumber = queue.size();
+            List<Integer> subList = new ArrayList<>();
+            for (int i = 0; i < levelNumber; i++) {
+                if (queue.peek().left != null) {
+                    queue.offer(queue.peek().left);
+                }
+                if (queue.peek().right != null) {
+                    queue.offer(queue.peek().right);
+                }
+                subList.add(queue.poll().val);
+            }
+            list.add(subList);
         }
-        return null;
+        return list;
     }
 }
