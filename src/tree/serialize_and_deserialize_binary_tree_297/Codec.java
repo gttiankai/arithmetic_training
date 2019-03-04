@@ -34,13 +34,13 @@
 
 package tree.serialize_and_deserialize_binary_tree_297;
 
-import heap.sliding_window_maximum_239.Solution;
 import tree.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Codec {
+public class
+Codec {
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         if (root == null) {
@@ -63,25 +63,63 @@ public class Codec {
         return result.toString();
     }
 
+
+    /**
+     * 参考网上的算法
+     * */
+    public TreeNode deserialize(String data){
+        if (data == null) {
+            return null;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+
+        String[] list = data.split(",");
+        TreeNode root = new TreeNode(Integer.valueOf(list[0]));
+        queue.offer(root);
+
+        for (int i = 1; i < list.length; i++) {
+            TreeNode parent = queue.poll();
+            // 当时是卡在了这个地方，需要注意一下。
+            // 这种方式非常值得记住，用于其他的题目
+            if(!list[i].equals("null")) {
+                TreeNode left = new TreeNode(Integer.valueOf(list[i]));
+                parent.left = left;
+                queue.offer(left);
+            }
+            if (!list[++i].equals("null")) {
+                TreeNode right = new TreeNode(Integer.valueOf(list[i]));
+                parent.right = right;
+                queue.offer(right);
+            }
+        }
+        return root;
+    }
+
     // Decodes your encoded data to tree.
-    public TreeNode deserialize(String data) {
+    // 目前这种办法支队完全二叉树有效，对其他的情会有问题。
+    public TreeNode deserializeFailed(String data) {
         if (data == null) {
             return null;
         }
         String[] list = data.split(",");
-        TreeNode head = new TreeNode(Integer.valueOf(list[0]));
-        TreeNode pointer = head;
-        for (int i = 0; i < list.length; i++) {
-            TreeNode node;
-            if (!list[1].equals("null")) {
-                node = new TreeNode(Integer.valueOf(list[i]));
-            }else {
-                node = null;
-            }
-
-        }
-        return null;
+        return createBinaryTree(list, 0);
     }
+    private TreeNode createBinaryTree(String[] list, int index) {
+        TreeNode node = null;
+        if (index < list.length) {
+            if (list[index].equals("null")) {
+                node = null;
+            } else {
+                int value = Integer.valueOf(list[index]);
+                node = new TreeNode(value);
+                node.left = createBinaryTree(list, 2*index +1);
+                node.right = createBinaryTree(list, 2*index +2);
+            }
+        }
+        return node;
+    }
+
+
 
     public static void main(String[] arguments) {
         TreeNode node1 = new TreeNode(1);
@@ -89,14 +127,27 @@ public class Codec {
         TreeNode node3 = new TreeNode(3);
         TreeNode node4 = new TreeNode(4);
         TreeNode node5 = new TreeNode(5);
+        TreeNode node31 = new TreeNode(3);
+        TreeNode node21 = new TreeNode(2);
 
+//        node5.left = node2;
+//        node5.right = node3;
+//        node3.left = node21;
+//        node3.right = node4;
+//        node21.left = node31;
+//        node21.right = node1;
+//
+
+        TreeNode root = node1;
         node1.left = node2;
         node1.right = node3;
         node3.left = node4;
         node3.right = node5;
+
         Codec codec = new Codec();
-        String str  = codec.serialize(node1);
-        codec.deserialize(str);
+        String str  = codec.serialize(root);
+        TreeNode node = codec.deserialize(str);
+        System.out.printf("haha");
     }
 }
 
