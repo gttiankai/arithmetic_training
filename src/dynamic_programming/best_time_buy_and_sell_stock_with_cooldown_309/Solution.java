@@ -19,7 +19,7 @@
  *
  * */
 
-package dynamic_programming.best_time_buy_and_sell_stock_309;
+package dynamic_programming.best_time_buy_and_sell_stock_with_cooldown_309;
 
 public class Solution {
     public int maxProfit(int[] prices) {
@@ -27,21 +27,15 @@ public class Solution {
             return 0;
         }
         int n = prices.length;
-
-        int[] hold = new int[n];
-        int[] cooldown = new int[n];
-        int[] sold = new int[n];
-        hold[0] = Integer.MIN_VALUE;
-        cooldown[0] = 0;
-        sold[0] = 0;
-        int max = 0;
-        for (int i = 1; i < n; i++) {
-            hold[i] = Math.max(hold[i-1], cooldown[i-1] - prices[i]);
-            sold[i] = hold[i] + prices[i];
-            cooldown[i] = Math.max(cooldown[i-1], sold[i-1]);
-
+        int[] sell = new int[n];
+        int[] buy = new int[n];
+        sell[0] = 0;
+        buy[0] = -prices[0];
+        for (int i = 1; i < prices.length; i++){
+            sell[i] = Math.max(sell[i-1], buy[i-1] + prices[i]);
+            buy[i] = Math.max(buy[i-1], (i > 1? sell[i-2]:0) - prices[i]);
         }
-        return Math.max(cooldown[n-1], sold[n-1]);
+        return sell[n-1];
     }
     public static void main(String[] arguments) {
         Solution solution = new Solution();

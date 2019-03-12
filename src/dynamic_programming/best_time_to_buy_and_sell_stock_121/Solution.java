@@ -18,7 +18,7 @@
  Output: 0
  Explanation: In this case, no transaction is done, i.e. max prof
  * */
-package dynamic_programming.best_time_to_buy_and_sell_121;
+package dynamic_programming.best_time_to_buy_and_sell_stock_121;
 
 public class Solution {
     public static int maxProfit(int[] prices) {
