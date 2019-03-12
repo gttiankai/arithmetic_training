@@ -22,7 +22,7 @@
 package dynamic_programming.best_time_buy_and_sell_stock_with_cooldown_309;
 
 public class Solution {
-    public int maxProfit(int[] prices) {
+    public int maxProfitSellAndBuy(int[] prices) {
         if (null == prices || prices.length < 2) {
             return 0;
         }
@@ -37,6 +37,30 @@ public class Solution {
         }
         return sell[n-1];
     }
+
+
+    public int maxProfit(int[] prices) {
+        if (null == prices || prices.length < 2) {
+            return 0;
+        }
+        int n = prices.length;
+        int[] cooldown = new int[n];
+        int[] hold = new int[n];
+        int[] sold = new int[n];
+        cooldown[0] = 0;
+        sold[0] = 0;
+        // 这个初始状态很重要。如果这个初始状态不对的话，会影响最终的结果。
+        hold[0] = -prices[0];
+        for ( int i = 1; i < n; i++) {
+            hold[i] = Math.max(hold[i -1], cooldown[i-1] - prices[i]);
+            sold[i] = hold[i-1] + prices[i];
+            cooldown[i] = Math.max(cooldown[i-1], sold[i-1]);
+            System.out.println("" + hold[i]);
+        }
+        return Math.max(cooldown[n-1], sold[n-1]);
+    }
+
+
     public static void main(String[] arguments) {
         Solution solution = new Solution();
         int[] prices = {1, 2, 3, 0, 2};
