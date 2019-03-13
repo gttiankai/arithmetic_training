@@ -30,7 +30,7 @@
  *
  * */
 
-package dynamic_programming.best_time_to_bug_and_sell_stock_123;
+package dynamic_programming.best_time_to_buy_and_sell_stock_123;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

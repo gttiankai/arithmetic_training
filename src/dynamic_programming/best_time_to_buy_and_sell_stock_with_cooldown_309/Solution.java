@@ -19,7 +19,7 @@
  *
  * */
 
-package dynamic_programming.best_time_buy_and_sell_stock_with_cooldown_309;
+package dynamic_programming.best_time_to_buy_and_sell_stock_with_cooldown_309;
 
 public class Solution {
     public int maxProfitSellAndBuy(int[] prices) {
