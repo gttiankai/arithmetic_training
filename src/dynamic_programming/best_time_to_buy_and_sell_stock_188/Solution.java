@@ -25,7 +25,51 @@
 package dynamic_programming.best_time_to_buy_and_sell_stock_188;
 
 public class Solution {
-    public int maxProfit(int k, int[] prices) {
 
+    public int maxProfit(int k, int[] prices) {
+        if (k == 0 || null == prices || prices.length <2) {
+            return 0;
+        }
+        int n = prices.length;
+        if (k >= n / 2) {
+            return peakAndVally(prices);
+        }
+
+        int[][] local = new int[n][k+1];
+        int[][] global = new int[n][k+1];
+
+        for (int i = 1; i < prices.length; i++) {
+            int diff = prices[i] - prices[i-1];
+
+            for (int j = 1; j < k+1; j++) {
+                // 这个local的递归方程一直没有想清楚。在到道理上没有想清楚。
+                local[i][j] = Math.max(
+                        global[i-1][j-1] + Math.max(diff, 0),
+                        local[i-1][j] + diff);
+
+                global[i][j] = Math.max(global[i-1][j], local[i][j]);
+            }
+        }
+        return global[n -1][k];
+    }
+
+    private int peakAndVally(int[] prices) {
+
+        int peak = prices[0];
+        int vally = prices[0];
+        int i = 0;
+        int max = 0;
+        while (i < prices.length-1) {
+            while ((i < prices.length-1) &&(prices[i] >= prices[i+1])) {
+                i++;
+            }
+            vally = prices[i];
+            while ( i < prices.length-1 && prices[i] <= prices[i+1]) {
+                i++;
+            }
+            peak = prices[i];
+            max += peak - vally;
+        }
+        return max;
     }
 }

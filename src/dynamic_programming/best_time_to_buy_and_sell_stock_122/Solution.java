@@ -32,7 +32,7 @@
 
 package dynamic_programming.best_time_to_buy_and_sell_stock_122;
 
-public class Solution {
+public class  Solution {
     /**
      * 如果采用暴力搜索法： 关键的是怎么搜索，这个是最重要的。
      *
@@ -63,4 +63,30 @@ public class Solution {
         }
         return max;
     }
+
+    /**
+     * 思路： 将所有正的价格的差值直接加起来
+     * */
+    public int maxProfitFaster(int[] prices) {
+        int sum = 0;
+        for (int i = 1; i < prices.length; i++) {
+            int diff = prices[i] - prices[i-1];
+            if (diff > 0) {
+                sum += diff;
+            }
+        }
+        return sum;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
