@@ -35,18 +35,17 @@ public class Solution {
 
     // 子问题是 dp[i]:表示 s 从0到 i 的位置,
     public boolean wordBreak(String s, List<String> wordDict) {
-        if (s == null || wordDict == null) {
+        if ( s == null || wordDict == null) {
             return false;
         }
         int n = s.length();
         boolean[] dp = new boolean[n+1];
-        // 这个初始值的设定非常重要,而且不是根据推理得出的,而是根据下面的代码,
-        // dp[0]必须是 true,如果是 false,则永远返回 false.
         dp[0] = true;
-        for (int window = 1; window <= n; window++) {
-            for (int j = 0; j < window; j++) {
-                if (dp[j] && wordDict.contains(s.substring(j,window))){
-                    dp[window] = true;
+        for (int bound = 1; bound <= n; bound++ ) {
+            for (int i = 0; i < bound; i++) {
+                if(dp[i] && wordDict.contains(s.substring(i, bound))){
+                    dp[bound] = true;
+                    // 如果已经找到了,就可以停止寻找了,不用再继续了.
                     break;
                 }
             }
