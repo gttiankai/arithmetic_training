@@ -1,6 +1,6 @@
 package sort.sortlist;
 
-import org.omg.PortableServer.LIFESPAN_POLICY_ID;
+import sort.ListNode;
 
 public class Solution {
 

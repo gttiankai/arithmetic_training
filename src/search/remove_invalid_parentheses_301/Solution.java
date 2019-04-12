@@ -26,7 +26,8 @@ import java.util.List;
 
 public class Solution {
     /**
-     * 这个题目还是有一定的难度的,我是直接参考: https://zxi.mytechroad.com/blog/searching/leetcode-301-remove-invalid-parentheses/
+     * 这个题目还是有一定的难度的,我是直接参考:
+     * https://zxi.mytechroad.com/blog/searching/leetcode-301-remove-invalid-parentheses/
      * 博客中讲解的方法如下所示:
      */
     public List<String> removeInvalidParentheses(String s) {
