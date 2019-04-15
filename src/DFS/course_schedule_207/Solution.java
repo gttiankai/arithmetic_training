@@ -31,7 +31,7 @@
  *
  * */
 
-package search.course_schedule_207;
+package DFS.course_schedule_207;
 
 import java.util.*;
 
@@ -47,10 +47,15 @@ public class Solution {
         for (int i = 0; i < numCourses; i++) {
             graph[i] = new ArrayList();
         }
+        /**
+         * graph[i]代表 i 课程之后能够学习到的课程,也就是以 i 为前置课程的所有的课程.
+         * */
         for (int i = 0; i < prerequisites.length; i++) {
             graph[prerequisites[i][1]].add(prerequisites[i][0]);
         }
-        // 从每一节课的角度进行遍历
+        /**
+         * 这个保证了所有的课程都是可以遍历到的
+         * */
         for (int i = 0; i < numCourses; i++) {
             if (!DFS(graph, visited, i)) {
                 return false;
@@ -58,6 +63,9 @@ public class Solution {
         }
         return true;
     }
+    /**
+     * course 代表从第几节课开始进行 DFS 的遍历.
+     * */
     private boolean DFS(ArrayList[] graph, boolean[] visited, int course) {
         if (visited[course]){
             // 已经成了环了，所以直接返回
