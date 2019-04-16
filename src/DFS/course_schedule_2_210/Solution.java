@@ -41,6 +41,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Solution {
+    /**
+     * 下面的算法是参考以前的事情，发现以前使用的算法，不能解决这个问题，最主要的原因是算法的设计思路上不能支持这种记录路径的问题
+     *
+     * */
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         ArrayList[] graph = new ArrayList[numCourses];
         boolean[] visited = new boolean[numCourses];
