@@ -41,6 +41,7 @@ public class Solution_1 {
             return;
         }
         this.color.put(node, GRAY);
+        // 个人感觉这个neighbor的方式非常好,能够解决大部分这一类的问题.
         for (Integer neighbor: this.adjList.getOrDefault(node, new ArrayList<>())){
             if (color.get(neighbor) == WHITE) {
                 DFS(neighbor);
