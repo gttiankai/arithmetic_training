@@ -48,16 +48,53 @@
 
 package BFS.minimum_height_tree_310;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Solution {
-    private Map<Integer, List> adjList = new HashMap<Integer, List>();
-    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
 
-    }
-    private int getDepth(int node) {
-        
+
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        if (n == 1) {
+            //return new ArrayList<>(0);
+            return Collections.singletonList(0);
+        }
+        List<Set<Integer>> adjList = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            adjList.add(new HashSet<>());
+        }
+        for (int[] edge : edges) {
+            adjList.get(edge[0]).add(edge[1]);
+            adjList.get(edge[1]).add(edge[0]);
+        }
+        List<Integer> leaves = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            if (adjList.get(i).size() == 1) {
+                leaves.add(i);
+            }
+        }
+        /**
+         *
+         * 最后一个简单而清晰的思路是：不断去掉叶子节点，每次去掉一层。去掉后又会产生新的叶子节点。
+         *
+         * 层层剥离后，最终剩下的1-2个节点就是解。
+         *
+         * 这样可行的原因就是，根节点一定是离所有叶子节点最远的那个节点。
+         * */
+        int count = n;
+        while (count > 2) {
+            count = count - leaves.size();
+            List<Integer> newLeaves = new ArrayList<>();
+            for (int i : leaves) {
+                int j = adjList.get(i).iterator().next();
+                adjList.get(j).remove(i);
+                if (adjList.get(j).size() == 1) {
+                    // 裁剪掉叶子之后,再更新leaves 数组,保存所有的叶子节点.
+                    newLeaves.add(j);
+                }
+            }
+            leaves = newLeaves;
+        }
+        return leaves;
     }
 }
