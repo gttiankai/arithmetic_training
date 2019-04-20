@@ -62,7 +62,18 @@ public class Solution {
      *     output: 6
      *     expected: 7
      *     我想不明白答案为什么是7, 我认为应该是6?
+     *     想明白了,一看之后恍然大悟
+     *        4
+     *       /
+     *      1
+     *     /
+     *    2
+     *   /
+     *  3
      *
+     *  由于4和3中间也不相连,所以,可以使用4和3进行.
+     *  这个测试例,就标志着我下面基于层次遍历的方法,完全行不通.
+     *  其实层次遍历是一个很好的方法,但是不适用于这个方法
      * */
     //TODO: need more research
     public int rob(TreeNode root) {
