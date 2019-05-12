@@ -6,6 +6,8 @@ public class Solution1 {
     /**
      * 果然不出所料:使用 BF 方案直接 Time Limit Exceeded
      *
+     * 时间复杂度 O(n^3)
+     *
      * */
 
     public int subarraySum(int[] nums, int k) {
