@@ -30,6 +30,10 @@ package array.task_scheduler_621;
 import java.util.HashMap;
 
 public class Solution {
+    /**
+     * 我本来是想通过 Hash表的方式处理这个程序,但是其实每个task 的编号其实是不会影响
+     * 调度的.
+     * */
     public int leastInterval(char[] tasks, int n) {
         if (tasks == null || tasks.length == 0){
             return 0;
@@ -44,5 +48,7 @@ public class Solution {
 
             }
         }
+        return 0;
     }
+
 }
