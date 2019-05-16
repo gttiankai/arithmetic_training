@@ -3,6 +3,9 @@ package array.task_scheduler_621;
 import java.util.Arrays;
 
 public class Solution1 {
+    /**
+     * 个人感觉这个算法,比较难想
+     * */
     public int leastInterval(char[] tasks, int n) {
         int[] map = new int[26];
         for (char c : tasks) {
