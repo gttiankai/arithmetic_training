@@ -6,7 +6,9 @@ public class Solution1 {
         if (s == null || s.length() == 0) {
             return 0;
         }
-
+        int n = s.length();
+        int ans = 0;
+        
         return 0;
     }
 }

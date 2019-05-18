@@ -30,6 +30,7 @@ package dynamic_programming.palindromic_substrings_647;
 public class Solution {
     /**
      * Runtime: 83 ms, faster than 14.13% of Java online submissions for Palindromic Substrings.
+     * 时间复杂度: O(n^3)
      *
      * */
     public int countSubstrings(String s) {
