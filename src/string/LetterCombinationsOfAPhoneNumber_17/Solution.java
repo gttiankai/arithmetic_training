@@ -14,7 +14,7 @@
  * Although the above answer is in lexicographical order, your answer could be in any order you want.
  **/
 
-package LetterCombinationsOfAPhoneNumber;
+package string.LetterCombinationsOfAPhoneNumber_17;
 
 import java.util.*;
 
