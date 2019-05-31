@@ -6,34 +6,34 @@ import java.util.Stack;
 
 public class Solution1 {
     /**
-     * 这个题目同样需要是用回溯法
+     * Runtime: 5 ms, faster than 6.84% of Java online submissions for Generate Parentheses.
      */
     public List<String> generateParenthesis(int n) {
         if (n == 0) {
             return new ArrayList<>();
         }
         ArrayList<String> ans = new ArrayList<>();
-        backTrace(ans, new StringBuilder('('),0, n);
+        backTrace(ans, new StringBuilder('('), 0, n);
         return ans;
     }
 
-    private void backTrace(ArrayList<String> ans, StringBuilder tmpString,  int index, int slots) {
-        if (index == slots *2) {
+    private void backTrace(ArrayList<String> ans, StringBuilder tmpString, int index, int slots) {
+        if (index == slots * 2) {
             ans.add(tmpString.toString());
-            return ;
+            return;
         }
 
         if (isValid(tmpString.append('(').toString(), slots)) {
-            backTrace(ans, tmpString, index+1, slots);
-            tmpString.deleteCharAt(tmpString.length()-1);
+            backTrace(ans, tmpString, index + 1, slots);
         }
+        tmpString.deleteCharAt(tmpString.length() - 1);
 
-        if (isValid(tmpString.append(')').toString(), slots)){
-            backTrace(ans, tmpString, index+1, slots);
-            tmpString.deleteCharAt(tmpString.length()-1);
+        if (isValid(tmpString.append(')').toString(), slots)) {
+            backTrace(ans, tmpString, index + 1, slots);
         }
-
+        tmpString.deleteCharAt(tmpString.length() - 1);
     }
+
     private boolean isValid(String string, int slots) {
         if (string == null || string.length() == 0) {
             return true;
@@ -41,7 +41,7 @@ public class Solution1 {
         int left = 0;
         int right = 0;
         Stack<Character> stack = new Stack<>();
-        for (int i = 0; i < string.length();i++) {
+        for (int i = 0; i < string.length(); i++) {
             if (string.charAt(i) == '(') {
                 left++;
                 if (left > slots) {
@@ -72,6 +72,7 @@ public class Solution1 {
         }
         return true;
     }
+
     public static void main(String[] arguments) {
         int n = 3;
         Solution1 solution = new Solution1();
