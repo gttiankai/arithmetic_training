@@ -7,6 +7,7 @@ import java.util.Stack;
 public class Solution1 {
     /**
      * Runtime: 5 ms, faster than 6.84% of Java online submissions for Generate Parentheses.
+     * Memory Usage: 35.3 MB, less than 99.96% of Java online submissions for Generate Parentheses.
      */
     public List<String> generateParenthesis(int n) {
         if (n == 0) {
