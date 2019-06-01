@@ -20,7 +20,7 @@
  *
  * */
 
-package backtracking.subSets_78;
+package backtracking.subsets_78;
 
 
 import java.util.ArrayList;

@@ -13,7 +13,7 @@
  */
 
 
-package backtracking.GenerateParentheses_22;
+package backtracking.generateParentheses_22;
 
 
 import java.util.ArrayList;
