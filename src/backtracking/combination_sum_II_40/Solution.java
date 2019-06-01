@@ -37,7 +37,6 @@ public class Solution {
      * Runtime: 8 ms, faster than 44.46% of Java online submissions for Combination Sum II.
      * Memory Usage: 36.9 MB, less than 99.61% of Java online submissions for Combination Sum II.
      *
-     * 虽然比较丑,但是总算解决了.
      *
      * */
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
@@ -47,19 +46,20 @@ public class Solution {
         }
         Arrays.sort(candidates);
         backTrack(ans, new ArrayList<>(), candidates, candidates.length-1, target);
-        // TODO: 集合
-        Set<List<Integer>> set = new HashSet<>();
-        for (List<Integer> list: ans) {
-            if (!set.contains(list)) {
-                set.add(list);
-            }
-
-        }
-        List<List<Integer>> result  = new ArrayList<>();
-        for (List<Integer> list: set) {
-            result.add(list);
-        }
-        return result;
+        return ans;
+//        // TODO: 集合
+//        Set<List<Integer>> set = new HashSet<>();
+//        for (List<Integer> list: ans) {
+//            if (!set.contains(list)) {
+//                set.add(list);
+//            }
+//
+//        }
+//        List<List<Integer>> result  = new ArrayList<>();
+//        for (List<Integer> list: set) {
+//            result.add(list);
+//        }
+//        return result;
     }
     private void backTrack(List<List<Integer>> ans, List<Integer> tmpList, int[] candidates, int index, int target){
         if (target < 0) {
@@ -70,6 +70,24 @@ public class Solution {
             return;
         }
         for (int i = index; i >=0 ; i--) {
+            /**
+             * 这个不能用,如果有重复的元素的话,就会产生问题.
+             * 例如:
+             *      {10,1,2,7,6,1,5} target = 8.
+             *      解: {1, 1, 6}这个解就会忽略
+             *
+             * */
+//            if (i> 0 && candidates[i] == candidates[i-1]){
+//                continue;
+//            }
+
+
+            /**
+             * 要用下面的算法
+             * */
+            if ( i < index && candidates[i] == candidates[i+1]) {
+                continue;
+            }
             if (target >= candidates[i]) {
                 tmpList.add(candidates[i]);
                 backTrack(ans, tmpList, candidates, i-1, target-candidates[i]);
@@ -78,7 +96,7 @@ public class Solution {
         }
     }
     public static void main(String[] arguments) {
-        int[] candidates = {10,1,2,7,6,1,5};
+        int[] candidates = {10,1, 1,2,7,6,1,5};
         int target = 8;
         Solution solution = new Solution();
         List<List<Integer>> ans = solution.combinationSum2(candidates, target);
