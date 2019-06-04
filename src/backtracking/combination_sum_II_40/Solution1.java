@@ -26,6 +26,7 @@ public class Solution1 {
         }
         for (int i = index; i < candidates.length ; i++) {
             /*
+            TODO: 后面弄清楚吧
             * 这个代码是我写的,但是还是没有太搞清楚是因为什么?
             * */
             if ( i > index && candidates[i] == candidates[i-1]) {
