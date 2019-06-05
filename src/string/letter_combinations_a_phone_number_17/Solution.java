@@ -1,3 +1,5 @@
+
+
 /**
  * Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
  * <p>
@@ -14,14 +16,14 @@
  * Although the above answer is in lexicographical order, your answer could be in any order you want.
  **/
 
-package string.LetterCombinationsOfAPhoneNumber_17;
+package string.letter_combinations_a_phone_number_17;
 
 import java.util.*;
 
 public class Solution {
     /**
      * 采用循环的方式，会有问题。
-     * */
+     */
     public static List<String> letterCombinationsOlder(String digits) {
 
         Map<Character, String> map = new HashMap<>();

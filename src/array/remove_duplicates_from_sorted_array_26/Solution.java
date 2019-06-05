@@ -47,7 +47,7 @@ public class Solution {
      *
      * Runtime: 1 ms, faster than 99.74% of Java online submissions for Remove Duplicates from Sorted Array.
      * Memory Usage: 38.3 MB, less than 99.94% of Java online submissions for Remove Duplicates
-     * 开心, 第一次自己提交,直接是最有解法.
+     * 开心, 第一次自己提交,直接是最优解法.
      * */
     public int removeDuplicates(int[] nums) {
         if(nums == null || nums.length == 0) {

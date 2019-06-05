@@ -1,4 +1,4 @@
-package string.LetterCombinationsOfAPhoneNumber_17;
+package string.letter_combinations_a_phone_number_17;
 
 import java.util.*;
 
