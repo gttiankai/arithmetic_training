@@ -1,7 +1,9 @@
+package tree.binary_tree_zigzag_level_order_traversal_103;
+
 import java.util.*;
+import tree.TreeNode;
 
 class Solution1 {
-    
     List<List<Integer>> result = new ArrayList<List<Integer>>();
 
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
@@ -9,6 +11,8 @@ class Solution1 {
         return result;
     }
 
+    // 这种方案之所以比我的方案快的原因是节点只需要读取一次，而我的方案需要首先读取到队列
+    // 然后从队列中在进行读取，相当于每个元素，读取了两遍
     public void helper(TreeNode root, int level) {
         if (root == null)
             return;
