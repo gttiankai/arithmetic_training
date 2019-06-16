@@ -7,7 +7,7 @@
  * Output: 5->4->3->2->1->NULL
  */
 
-package list.reverse_linked_list_206;
+package linked_list.reverse_linked_list_206;
 
 public class Solution {
     /**

@@ -1,4 +1,4 @@
-package list.reverse_linked_list_206;
+package linked_list.MegerKSortedList;
 
 public class ListNode {
     int val;

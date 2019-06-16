@@ -1,4 +1,4 @@
-package list.intersecton_of_two_linkded_lists_160;
+package linked_list.reverse_linked_list_206;
 
 public class ListNode {
     int val;
@@ -6,6 +6,5 @@ public class ListNode {
 
     ListNode(int x) {
         val = x;
-        next = null;
     }
 }

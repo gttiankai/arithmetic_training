@@ -35,9 +35,9 @@
  * Can you solve it using O(1) (i.e. constant) memory?
  * <p>
  */
-package list.linked_list_cycle_141;
+package linked_list.linked_list_cycle_141;
 
-import list.ListNode;
+import linked_list.ListNode;
 
 import java.util.HashSet;
 

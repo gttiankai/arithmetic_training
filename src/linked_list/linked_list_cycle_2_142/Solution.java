@@ -25,9 +25,9 @@
  * Explanation: There is no cycle in the linked list.
  * */
 
-package list.linked_list_cycle_2_142;
+package linked_list.linked_list_cycle_2_142;
 
-import list.ListNode;
+import linked_list.ListNode;
 
 import java.util.HashSet;
 

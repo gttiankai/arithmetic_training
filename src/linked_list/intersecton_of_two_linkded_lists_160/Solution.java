@@ -41,7 +41,7 @@
  * Your code should preferably run in O(n) time and use only O(1) memory.
  */
 
-package list.intersecton_of_two_linkded_lists_160;
+package linked_list.intersecton_of_two_linkded_lists_160;
 
 import java.util.HashSet;
 
