@@ -1,6 +1,10 @@
 package array.set_matrix_zeroes_73;
 
 public class Solution2 {
+    /**
+     * 这个题目主要考察的是如何优化空间复杂度的问题
+     *
+     * */
     public void setZeroes(int[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
             return;
