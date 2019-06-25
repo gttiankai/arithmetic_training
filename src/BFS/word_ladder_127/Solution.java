@@ -40,6 +40,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
+    /**
+     * Time Limit Exceeded
+     * 我设计的 DFS 算法超时了,需要进行优化.
+     * 啊啊啊, 居然将 DFS 算法错误的当成了 BFS 算法,果然脑子不清晰的时候不要做算法题.
+     * 怪不得会超时的呢
+     * */
     private int ans = Integer.MAX_VALUE;
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
 
@@ -50,7 +56,7 @@ class Solution {
         }
         List<String> tmpList = new ArrayList<>();
         tmpList.add(beginWord);
-        BFS(endWord, wordList, 0, tmpList);
+        DFS(beginWord, endWord, wordList, tmpList);
 
         if(ans == Integer.MAX_VALUE){
             return 0;
@@ -59,28 +65,29 @@ class Solution {
         }
 
     }
-    private void BFS(String endWord, List<String> wordList, int index, List<String> tmpList){
+    private void DFS(String preWord, String endWord, List<String> wordList, List<String> tmpList){
 
-        if (tmpList.get(tmpList.size()-1).equals(endWord)) {
+        if (preWord.equals(endWord)) {
             if (ans > tmpList.size()) {
                 ans = tmpList.size();
                 return;
             }
-        } else if(index == wordList.size()) {
+        } else if(tmpList.size() == wordList.size()) {
             return;
         }
         /**
          * 只能按照顺序去增长,不能去其他方向拓展
          * */
-        for (int i = index; i < wordList.size(); i++) {
-            String preString = tmpList.get(tmpList.size()-1);
+        for (int i = 0; i < wordList.size(); i++) {
             String curString = wordList.get(i);
-            if (isValid(preString, curString)) {
+            if ( tmpList.contains(curString)){
+                continue;
+            }
+            if (isValid(preWord, curString)) {
                 tmpList.add(curString);
-                BFS(endWord, wordList, i +1, tmpList);
+                DFS(curString, endWord, wordList, tmpList);
                 tmpList.remove(tmpList.size()-1);
             }
-
         }
 
     }
@@ -99,17 +106,18 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        String beginWord = "hot";
-        String endWord = "dog";
+        String beginWord = "hit";
+        String endWord = "cog";
         List<String> wordList = new ArrayList<String>();
         // "hot", "dot", "dog", "lot", "log", "cog"
         wordList.add("hot");
-        wordList.add("dog");
         wordList.add("dot");
+        wordList.add("dog");
 
-        //wordList.add("lot");
-        //wordList.add("log");
-        //wordList.add("cog");
+
+        wordList.add("lot");
+        wordList.add("log");
+        wordList.add("cog");
 
         Solution solution = new Solution();
         System.out.println(solution.ladderLength(beginWord, endWord, wordList));
