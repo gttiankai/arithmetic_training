@@ -30,7 +30,7 @@ package DFS.surrounded_regions_130;
 
 public class Solution {
     /**
-     * 没有理解清楚题意, 对题目是联通的,没有理解深刻
+     * 这个题目没有作对的原因就是对题意没有理解的特别透彻,导致没有写出来
      * */
     public void solve(char[][] board) {
         if (board == null || board.length == 0||board[0].length == 0) {
@@ -106,7 +106,6 @@ public class Solution {
         } else {
             return false;
         }
-
 
     }
 }
