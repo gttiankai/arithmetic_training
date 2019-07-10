@@ -28,7 +28,7 @@
  * 这个题目中最重要的地方在于解题的方式：采用的是消除法，消除所有的应用。
  */
 
-package NumberOfIsland_200;
+package DFS.number_of_island_200;
 
 public class Solution {
     /**

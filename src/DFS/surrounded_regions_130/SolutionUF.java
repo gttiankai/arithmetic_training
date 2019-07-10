@@ -1,6 +1,6 @@
 package DFS.surrounded_regions_130;
 
-public class Solution1 {
+public class SolutionUF {
 
     public class UFUnionFind {
         private int[] id;   // 父链接数组
@@ -96,6 +96,11 @@ public class Solution1 {
      *  ["X","X","X","O","X"],
      *  ["O","X","O","O","X"],
      *  ["X","X","O","X","O"]]
+     *
+     * Runtime: 9 ms, faster than 10.13% of Java online submissions for Surrounded Regions.
+     * Memory Usage: 46.5 MB, less than 35.48% of Java online submissions for Surrounded Regions.
+     * 使用 UF 算法终于解决了这个问题
+     * 使用连通性的问题解决这个问题
      * */
     public void solve(char[][] board) {
         if (board == null || board.length == 0 || board[0].length == 0) {
@@ -112,20 +117,15 @@ public class Solution1 {
                 } else if (board[i][j] == 'O') {
 
                     if (board[i - 1][j] == 'O') {
-
                         uf.union(i * n + j, (i - 1) * n + j);
-
-                    } else if (board[i + 1][j] == 'O') {
-
+                    }
+                    if (board[i + 1][j] == 'O') {
                         uf.union(i * n + j, (i + 1) * n + j);
-
-                    } else if (board[i][j - 1] == 'O') {
-
+                    }
+                    if (board[i][j - 1] == 'O') {
                         uf.union(i * n + j, i * n + j - 1);
-
-
-                    } else if (board[i][j + 1] == 'O') {
-
+                    }
+                    if (board[i][j + 1] == 'O') {
                         uf.union(i * n + j, i * n + j + 1);
 
                     }
@@ -148,7 +148,7 @@ public class Solution1 {
                 {'X','O', 'O','O', 'O'},
                 {'X','X', 'O','X', 'O'}
         };
-        Solution1 solution = new Solution1();
+        SolutionUF solution = new SolutionUF();
         solution.solve(board);
     }
 }
