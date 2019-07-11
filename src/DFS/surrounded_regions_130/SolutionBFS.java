@@ -8,7 +8,7 @@ public class SolutionBFS {
      *
      * Runtime: 2 ms, faster than 53.08% of Java online submissions for Surrounded Regions.
      * Memory Usage: 47 MB, less than 23.79% of Java online submissions for Surrounded Regions.
-     * 
+     *
      * */
     public void solve(char[][] board) {
 
