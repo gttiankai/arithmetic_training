@@ -18,7 +18,6 @@
  * */
 package array.maximum_product_subarray_152;
 
-import sun.tools.jconsole.MaximizableInternalFrame;
 
 public class Solution {
     /**

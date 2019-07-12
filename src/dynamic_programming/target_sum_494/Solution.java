@@ -36,6 +36,7 @@ public class Solution {
         if (nums == null || nums.length  == 0) {
             return 0;
         }
+<<<<<<< HEAD
         calculate(nums, 0, 0, S);
         return count;
     }
@@ -49,5 +50,26 @@ public class Solution {
             calculate(nums, index+1, sum - nums[index], target);
             calculate(nums, index+1, sum + nums[index], target);
         }
+=======
+        calculate(nums, 0, 0 , S);z
+        return count;
+    }
+    private void calculate(int[] nums, int i, int sum, int S){
+        if (i == nums.length) {
+            if (sum == S) {
+                count++;
+            }
+        } else {
+            // 这个地方很好的利用了递归的特性，不得不佩服
+            calculate(nums, i+1, sum - nums[i], S);
+            calculate(nums, i+1, sum + nums[i], S);
+        }
+    }
+    public static void main(String[] arguments) {
+        int[] nums = new int[] {1, 1, 1, 1, 1};
+        int S = 3;
+        Solution solution = new Solution();
+        System.out.printf("" + solution.findTargetSumWays(nums, S));
+>>>>>>> Update: 使用递归解决了494
     }
 }
