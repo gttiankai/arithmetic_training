@@ -36,21 +36,6 @@ public class Solution {
         if (nums == null || nums.length  == 0) {
             return 0;
         }
-<<<<<<< HEAD
-        calculate(nums, 0, 0, S);
-        return count;
-    }
-
-    private void calculate(int[] nums, int index, int sum , int target) {
-        if (index == nums.length) {
-            if (sum == target) {
-                count++;
-            }
-        } else {
-            calculate(nums, index+1, sum - nums[index], target);
-            calculate(nums, index+1, sum + nums[index], target);
-        }
-=======
         calculate(nums, 0, 0 , S);z
         return count;
     }
@@ -70,6 +55,5 @@ public class Solution {
         int S = 3;
         Solution solution = new Solution();
         System.out.printf("" + solution.findTargetSumWays(nums, S));
->>>>>>> Update: 使用递归解决了494
     }
 }
