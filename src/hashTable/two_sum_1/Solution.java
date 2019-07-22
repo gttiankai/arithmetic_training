@@ -10,11 +10,9 @@
  * 因为 nums[0] + nums[1] = 2 + 7 = 9
  * 所以返回 [0, 1]
  **/
-package two_sum_1;
+package hashTable.two_sum_1;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 public class Solution {
     /*

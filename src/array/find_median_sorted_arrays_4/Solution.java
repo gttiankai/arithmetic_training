@@ -18,11 +18,13 @@
  * <p>
  * 中位数是 (2 + 3)/2 = 2.5
  **/
-package find_median_sorted_arrays_4;
+package array.find_median_sorted_arrays_4;
 
 public class Solution {
     /**
      * 该方案的时间复杂度是O（m + n），并没有达到O(log(m + n))
+     *
+     * 这个方案当时确实是最简单的方案, 但是有没有好的方法
      * */
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
         // 1. 现将两个数组排序
