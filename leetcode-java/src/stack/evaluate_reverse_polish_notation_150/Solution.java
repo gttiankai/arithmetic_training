@@ -46,7 +46,7 @@ class Solution {
      * */
     public int evalRPN(String[] tokens) {
         if (tokens == null || tokens.length == 0) {
-            throw  Exception("invalid RPN");
+            //throw  Exception("invalid RPN");
             return -1;
         }
         Stack<String> stack = new Stack<String>();
@@ -54,7 +54,7 @@ class Solution {
         for (int i = 0; i < N; i++) {
             if (isValidOp(tokens[i])) {
                 if (stack.size() == 0) {
-                    throw Exception("invalid RPN");
+                    //throw Exception("invalid RPN");
                     return -1;
                 }
                 stack.push(calculate(stack.pop(), stack.pop(), tokens[i]));
