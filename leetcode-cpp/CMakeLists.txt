@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(leetcode_cpp)
-
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g -O0")
 
 file (GLOB files *.cc)
 foreach (file ${files})
