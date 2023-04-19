@@ -15,14 +15,19 @@
 #include <string>
 #include <vector>
 
-
 /**
- *  超时了,时间复杂度还没有算清楚
- *
+ * 时间复杂度: O(n)
+ * 空间复杂度: O(n)
+ * 超时的原因是: 二维数组的创建浪费了大量的时间,
+ * 超时的关键云因竟然是: 没有对特殊情况的考虑
+ * 但是即使实现了对特殊情况的考虑,我的实现也并不快
  * */
-class Solution {
+class SolutionSlow {
  public:
   std::string convert(std::string s, int numRows) {
+    if (numRows == 1 || s.size() <= numRows) {
+      return s;
+    }
     std::vector<std::vector<char>> zig_zag(numRows, std::vector<char>());
     bool down  = true;
     int window = 0;
@@ -55,10 +60,53 @@ class Solution {
   }
 };
 
+class Solution {
+ public:
+  std::string convert(std::string s, int numRows) {
+    /*
+     * 下面特殊情况的代码也要考虑进去,如果没有这部分会超时
+     * */
+    if (numRows == 1 || s.size() <= numRows) {
+      return s;
+    }
+    std::vector<std::string> zig_zag(numRows);
+    bool down  = true;
+    int window = 0;
+    for (int i = 0; i < s.size();) {
+      if (down) {
+        if (window < numRows) {
+          zig_zag[window] += s[i];
+          window++;
+          i++;
+        } else {
+          down = false;
+          window -= 2;
+        }
+      } else {
+        if (window >= 0) {
+          //zig_zag[window].push_back(s[i]);
+          zig_zag[window] += s[i];
+          window--;
+          i++;
+        } else {
+          down = true;
+          window += 2;
+        }
+      }
+    }
+    std::string res;
+    for (const auto& item : zig_zag) {
+      res += std::string(item.begin(), item.end());
+    }
+    return res;
+  }
+};
+
 int main(int argc, char* argv[]) {
-  //std::string s = "0123456789abcdef";
-  std::string s = "a";
+  std::string s = "0123456789abcdef";
   int num_rows  = 4;
+  SolutionSlow solution_slow;
+  std::cout << solution_slow.convert(s, num_rows) << std::endl;
   Solution solution;
   std::cout << solution.convert(s, num_rows) << std::endl;
 }
