@@ -60,7 +60,7 @@ class SolutionSlow {
   }
 };
 
-class Solution {
+class SolutionComplex {
  public:
   std::string convert(std::string s, int numRows) {
     /*
@@ -84,7 +84,6 @@ class Solution {
         }
       } else {
         if (window >= 0) {
-          //zig_zag[window].push_back(s[i]);
           zig_zag[window] += s[i];
           window--;
           i++;
@@ -94,6 +93,28 @@ class Solution {
         }
       }
     }
+    std::string res;
+    for (const auto& item : zig_zag) {
+      res += std::string(item.begin(), item.end());
+    }
+    return res;
+  }
+};
+
+class Solution {
+ public:
+  std::string convert(std::string message, int num_row) {
+    int size = message.size();
+    if (size <= 1 || size <= num_row) {
+      return message;
+    }
+    std::vector<std::string> zig_zag;
+    int zig_zag_size = num_row * 2 - 2;
+    for (int i = 0, window = 0; i < size; ++i) {
+      zig_zag[window] += message[i];
+      i % zig_zag_size < num_row - 1 ? window++ : window--;
+    }
+
     std::string res;
     for (const auto& item : zig_zag) {
       res += std::string(item.begin(), item.end());
