@@ -13,9 +13,11 @@
 // specific language governing permissions and limitations under the License.
 
 #include <iostream>
+#include <locale>
 #include <map>
 #include <set>
 #include <string>
+#include <unordered_map>
 /**
 字符          数值
 I             1
@@ -86,13 +88,13 @@ class SolutionWrong {
 /**
  * 虽然通过了所有的测试,但是性能太差了,要详细分析下
  * */
-class Solution {
+class SolutionSlow {
  public:
   int romanToInt(std::string s) {
     InitMap();
     const int N = s.size();
     int value   = 0;
-    for (int i = 0; i < N; ) {
+    for (int i = 0; i < N;) {
       if (i + 1 < N) {
         if (Valid(s, i)) {
           value += roman_int_map_[s[i] + s[i + 1]];
@@ -136,6 +138,31 @@ class Solution {
   std::set<std::string> roman_set_ = {"IV", "IX", "XL", "XC", "CD", "CM"};
 };
 
+/**
+   忽略了一个重要的规律:
+   1. 正常情况下右边的罗马数字肯定比左边的大
+   2. 如果右边的罗马数字比左边的小,那肯定就是 6 种特殊的罗马数字
+ */
+class Solution {
+ public:
+  int romanToInt(std::string s) {
+    std::unordered_map<char, int> roman_int_dict = {{'I', 1},   {'V', 5},   {'X', 10},  {'L', 50},
+                                                    {'C', 100}, {'D', 500}, {'M', 1000}};
+
+    int ans = 0;
+    int N   = s.size();
+    for (int i = 0; i < N; i++) {
+      int value = roman_int_dict[s[i]];
+      if (i + 1 < N && value < roman_int_dict[s[i+1]]) {
+        ans -= value;
+      } else {
+        ans += value;
+      }
+    }
+    return ans;
+  }
+};
+
 int main(int argc, char* argv[]) {
   std::string rom_number = "MCMXCIV";
   Solution solution;
@@ -147,5 +174,8 @@ int main(int argc, char* argv[]) {
 
   std::cout << "DCXXI"
             << " : " << solution.romanToInt("DCXXI") << std::endl;
+
+  std::cout << "MCMXCIV"
+            << " : " << solution.romanToInt("MCMXCIV") << std::endl;
   return 0;
 }
