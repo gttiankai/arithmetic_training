@@ -29,7 +29,7 @@ class Solution {
         continue;
       }
       int target = -nums[i];
-      int k = N - 1;
+      int k      = N - 1;
       for (int j = i + 1; j < N; ++j) {
         if (j > i + 1 && nums[j] == nums[j - 1]) {
           continue;
