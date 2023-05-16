@@ -1,38 +1,44 @@
-#include "command_include.h"
-struct TreeNode {
-  int val;
-  TreeNode *left;
-  TreeNode *right;
-  TreeNode() : val(0), left(nullptr), right(nullptr) {}
-  TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-  TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
+#include "tree_node.h"
+
+#include <iostream>
+#include <vector>
 class Solution {
  public:
-  void Inorder(TreeNode *root, std::vector<int>& res) {
-    if (root == nullptr) {
-      return;
-    }
-    Inorder(root->left, res);
-    res.push_back(root->val);
-    Inorder(root->right, res);
-  }
-  void InorderO1(TreeNode* root, std::vector<int>& res) {
-    if (root == nullptr) {
-      return;
-    }
-    if (root->left != nullptr){
-      Inorder(root->left, res);
-    }
-    res.push_back(root->val);
-    if (root->right != nullptr) {
-      Inorder(root->right, res);
-    }
+  std::vector<int> inorderTraversal(TreeNode* root) {
+    std::vector<int> ans;
+    Traversal(root, ans);
+    return ans;
   }
 
-  std::vector<int> inorderTraversal(TreeNode *root) {
-    std::vector<int> res;
-    Inorder(root, res);
-    return res;
+ private:
+  void Traversal(TreeNode* root, std::vector<int>& ans) {
+    if (root == nullptr) {
+      return;
+    }
+    Traversal(root->left, ans);
+    ans.push_back(root->val);
+    Traversal(root->right, ans);
   }
 };
+
+int main(int argc, char* argv[]) {
+  TreeNode root;
+  TreeNode two_node;
+  TreeNode three_node;
+  root.val         = 1;
+  two_node.val     = 2;
+  three_node.val   = 3;
+  root.left        = nullptr;
+  root.right       = &two_node;
+  two_node.left    = &three_node;
+  two_node.right   = nullptr;
+  three_node.left  = nullptr;
+  three_node.right = nullptr;
+  Solution solution;
+  auto ans = solution.inorderTraversal(&root);
+  for (const auto& item : ans) {
+    std::cout << item << " ";
+  }
+  std::cout << std::endl;
+  return 0;
+}
