@@ -28,7 +28,9 @@ class Solution {
       while (inorder_list[left]->val < inorder_list[left + 1]->val) {
         left++;
       }
-      while (inorder_list[left] < inorder_list[right]) {
+      //错误的原因：将代码写错了，错误的将指针进行了比较，在很多机器上无法发现,有些情况下指针和值的大小情况正好相同
+      // while (inorder_list[left] < inorder_list[right]) {
+      while (inorder_list[left]->val < inorder_list[right]->val) {
         right--;
       }
       int temp                 = inorder_list[left]->val;
@@ -56,10 +58,11 @@ class Solution {
 };
 
 int main(int argc, char* argv[]) {
-  TreeNode one(1), two(2), three(3);
-  one.left    = &three;
-  three.right = &two;
+  std::string input = "[3,1,4,null,null,2]";
+  TreeNode* root = StringToTreeNode(input);
   Solution solution;
-  solution.recoverTree(&one);
+  solution.recoverTree(root);
+  std::string output = TreeNodeToString(root);
+  std::cout << output << std::endl;
   return 0;
 }
