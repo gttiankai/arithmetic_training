@@ -13,6 +13,7 @@
 // specific language governing permissions and limitations under the License.
 #include <iostream>
 #include <string>
+#include <vector>
 /**
  * 有两个需要注意的点:
  *  1. 特殊情况的处理,例如单个字符也是回文子串
