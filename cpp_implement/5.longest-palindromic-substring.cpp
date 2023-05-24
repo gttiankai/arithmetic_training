@@ -61,7 +61,7 @@ class Solution {
     dp[0] = 1;
     int max_len = dp[0];
     for (int i = 1; i < N; ++i) {
-      
+
     }
   }
 };
