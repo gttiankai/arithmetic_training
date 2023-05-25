@@ -60,18 +60,10 @@
 #include <vector>
 #include "list_node.h"
 
-// @lc code=start
 /**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
+    这个版本的实现是正确的,但是实现的不够优雅,太丑了
  */
-class Solution {
+class SolutionUgly {
  public:
   ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
     ListNode* root = nullptr;
@@ -92,10 +84,10 @@ class Solution {
     while (list1 != nullptr || list2 != nullptr) {
       if (list1 == nullptr) {
         guard->next = list2;
-        break ;
+        break;
       } else if (list2 == nullptr) {
         guard->next = list1;
-        break ;
+        break;
       } else {
         if (list1->val <= list2->val) {
           guard->next = list1;
@@ -111,12 +103,49 @@ class Solution {
     return root;
   }
 };
+// @lc code=start
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+class Solution {
+ public:
+  ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    ListNode pre_node(-1);
+    ListNode* guard = &pre_node;
+
+    while (list1 != nullptr && list2 != nullptr) {
+      if (list1->val <= list2->val) {
+        guard->next = list1;
+        guard       = guard->next;
+        list1       = list1->next;
+      } else {
+        guard->next = list2;
+        guard       = guard->next;
+        list2       = list2->next;
+      }
+    }
+    if (list1 == nullptr) {
+      guard->next = list2;
+    } else {
+      guard->next = list1;
+    }
+    return pre_node.next;
+  }
+};
 // TODO: 实现递归版本
 // TODO: 实现迭代的版本
 // @lc code=end
 
 int main(int argc, char* argv[]) {
-  ListNode* list1 = StringToListNode("[1, 2, 4]");
+  ListNode* list1 = StringToListNode("[1, 2]");
   ListNode* list2 = StringToListNode("[1, 3, 4]");
   Solution solution;
   auto ans = solution.mergeTwoLists(list1, list2);
