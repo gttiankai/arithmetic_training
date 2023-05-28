@@ -75,6 +75,9 @@ class SolutionSlow {
   }
 };
 // @lc code=start
+/**
+ * 这个题目主要考察的是贪心算法
+ * */
 class Solution {
  public:
   bool canJumpWrong(std::vector<int>& nums) {
