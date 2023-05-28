@@ -4,6 +4,7 @@ project(arithmetic_training)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer -g -O0")
 set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
 
 file(GLOB files *.cc *.cpp)
 foreach (file ${files})
