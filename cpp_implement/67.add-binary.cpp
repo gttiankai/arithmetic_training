@@ -39,8 +39,49 @@
 // @lc code=start
 class Solution {
  public:
-  std::string addBinary(std::string a, string b) {
-    std::string ans;
+  std::string addBinary(std::string a, std::string b) {
+    int carry       = 0;
+    std::string ans = "";
+    auto iter_a     = a.rbegin();
+    auto iter_b     = b.rbegin();
+    while (iter_a != a.rend() && iter_b != b.rend()) {
+      int num = (*iter_a - '0') + (*iter_b - '0') + carry;
+      if (num > 1) {
+        carry = 1;
+        ans.insert(ans.begin(), char(num - 2 + '0'));
+      } else {
+        ans.insert(ans.begin(), char(num + '0'));
+        carry = 0;
+      }
+      iter_a++;
+      iter_b++;
+    }
+    while (iter_a != a.rend()) {
+      int num = (*iter_a - '0') + carry;
+      if (num > 1) {
+        carry = 1;
+        ans.insert(ans.begin(), char(num - 2 + '0'));
+      } else {
+        ans.insert(ans.begin(), char(num + '0'));
+        carry = 0;
+      }
+      iter_a++;
+    }
+    while (iter_b != b.rend()) {
+      int num = (*iter_b - '0') + carry;
+      if (num > 1) {
+        carry = 1;
+        ans.insert(ans.begin(), char(num - 2 + '0'));
+      } else {
+        ans.insert(ans.begin(), char(num + '0'));
+        carry = 0;
+      }
+      iter_b++;
+    }
+    if (carry == 1) {
+      ans.insert(ans.begin(), '1');
+    }
+    return ans;
   }
 };
 // @lc code=end
