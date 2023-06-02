@@ -44,22 +44,17 @@
  */
 #include "tree_node.h"
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
-// @lc code=start
 /**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
-class Solution {
+ * 这个解法是错误的,中序遍历之后的 list,即使是回文的,也不能保证二叉树是镜像的
+ * bad case: [1, 2, 2, 2, null, 2]
+ * 即使将 null 也考虑进行也不能解决这个问题,详见下面的这个 bad case
+ * bad case: [5,4,1,null,1,null,4,2,null,2,null]
+ * */
+class SolutionWrong {
  public:
   bool isSymmetric(TreeNode* root) {
     std::vector<int> list;
@@ -82,30 +77,65 @@ class Solution {
     if (root == nullptr) {
       return;
     }
-    if (root->left == nullptr) {
-      list.push_back(INT_MIN);
+    if (root->left != nullptr || root->right != nullptr) {
+      if (root->left == nullptr) {
+        list.push_back(INT_MIN);
+      } else {
+        Inorder(root->left, list);
+      }
+      list.push_back(root->val);
+      if (root->right == nullptr) {
+        list.push_back(INT_MIN);
+      } else {
+        Inorder(root->right, list);
+      }
     } else {
-      Inorder(root->left, list);
-    }
-    list.push_back(root->val);
-    if (root->right == nullptr) {
-      list.push_back(INT_MIN);
-    } else {
-      Inorder(root->right, list);
+      list.push_back(root->val);
+      return;
     }
   }
 };
+// @lc code=start
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+ public:
+  bool isSymmetric(TreeNode* root) {
+    if (root != nullptr && root->left == nullptr && root->right == nullptr) {
+      return true;
+    }
+    return Symmetric(root->left, root->right);
+  }
+
+ private:
+  bool Symmetric(TreeNode* node_1, TreeNode* node_2) {
+    if (node_1 == nullptr && node_2 == nullptr) {
+      return true;
+    }
+    if (node_1 == nullptr || node_2 == nullptr) {
+      return false;
+    }
+    if (node_1->val != node_2->val) {
+      return false;
+    }
+    return Symmetric(node_1->left, node_2->right) && Symmetric(node_1->right, node_2->left);
+  }
+};
+
 // @lc code=end
 
-/**
- *
- * [1,2,2,2,null,2]
- *          1
- *      2       2
- *    2  2    n   2
- * */
 int main(int argc, char* argv[]) {
   std::vector<std::string> test_case;
+  test_case.push_back("[5,4,1,null,1,null,4,2,null,2,null]");
   test_case.push_back("[1,2,2,2,null,2]");
   test_case.push_back("[1,2,2,3,4,4,3]");
   test_case.push_back("[1,2,2,null,3,null,3]");
