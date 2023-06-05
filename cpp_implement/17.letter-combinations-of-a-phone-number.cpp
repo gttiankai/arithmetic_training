@@ -57,13 +57,14 @@
 #include <queue>
 #include <string>
 #include <vector>
-// @lc code=start
-static std::map<char, std::vector<char>> letter_map_ = {
-    {'2', {'a', 'b', 'c'}}, {'3', {'d', 'e', 'f'}},      {'4', {'g', 'h', 'i'}}, {'5', {'j', 'k', 'l'}},
-    {'6', {'m', 'n', 'o'}}, {'7', {'p', 'q', 'r', 's'}}, {'8', {'t', 'u', 'v'}}, {'9', {'w', 'x', 'y', 'z'}}};
-class Solution {
+
+class SolutionUgly {
  public:
   std::vector<std::string> letterCombinations(std::string digits) {
+    static std::map<char, std::vector<char>> letter_map_ = {
+        {'2', {'a', 'b', 'c'}}, {'3', {'d', 'e', 'f'}},      {'4', {'g', 'h', 'i'}}, {'5', {'j', 'k', 'l'}},
+        {'6', {'m', 'n', 'o'}}, {'7', {'p', 'q', 'r', 's'}}, {'8', {'t', 'u', 'v'}}, {'9', {'w', 'x', 'y', 'z'}}};
+
     std::vector<std::string> ans = {};
     if (digits.empty()) {
       return ans;
@@ -92,6 +93,44 @@ class Solution {
       queue.pop();
     }
     return ans;
+  }
+};
+
+// @lc code=start
+/**
+ * 重构了回溯的方案，本质上和上面的方案是一致的，只是用递归调用的方式实现了回溯方案。
+ * 两个方案的时间复杂度是一样的。
+ * */
+class Solution {
+ public:
+  std::vector<std::string> letterCombinations(std::string digits) {
+    std::vector<std::string> combinations;
+    if (digits.empty()) {
+      return combinations;
+    }
+    static std::map<char, std::vector<char>> letter_map_ = {
+        {'2', {'a', 'b', 'c'}}, {'3', {'d', 'e', 'f'}},      {'4', {'g', 'h', 'i'}}, {'5', {'j', 'k', 'l'}},
+        {'6', {'m', 'n', 'o'}}, {'7', {'p', 'q', 'r', 's'}}, {'8', {'t', 'u', 'v'}}, {'9', {'w', 'x', 'y', 'z'}}};
+
+    std::string combination;
+    BackTrack(combinations, letter_map_, digits, 0, combination);
+    return combinations;
+  }
+
+ private:
+  void BackTrack(std::vector<std::string>& combinations, std::map<char, std::vector<char>>& letter_map,
+                 std::string& digists, int index, std::string& combination) {
+    if (index == digists.size()) {
+      combinations.push_back(combination);
+    } else {
+      char digit   = digists[index];
+      auto& letter = letter_map.at(digit);
+      for (const auto& item : letter) {
+        combination.push_back(item);
+        BackTrack(combinations, letter_map, digists, index + 1, combination);
+        combination.pop_back();
+      }
+    }
   }
 };
 // @lc code=end
