@@ -54,6 +54,7 @@
 
 #include <iostream>
 #include <map>
+#include <queue>
 #include <string>
 #include <vector>
 // @lc code=start
@@ -67,13 +68,28 @@ class Solution {
     if (digits.empty()) {
       return ans;
     }
+    std::queue<std::string> queue;
+
     int N       = digits.size();
     auto letter = letter_map_[digits[0]];
     for (const auto& iter : letter) {
-      ans.push_back(std::to_string(iter));
+      std::string temp = "";
+      queue.push(temp + iter);
     }
     for (int i = 1; i < N; ++i) {
-      letter = letter_map_[digits[i]];
+      letter    = letter_map_[digits[i]];
+      int count = queue.size();
+      for (int j = 0; j < count; ++j) {
+        std::string pre = queue.front();
+        queue.pop();
+        for (const auto& iter : letter) {
+          queue.push(pre + iter);
+        }
+      }
+    }
+    while (!queue.empty()) {
+      ans.push_back(queue.front());
+      queue.pop();
     }
     return ans;
   }
@@ -83,10 +99,11 @@ class Solution {
 int main(int argc, char* argv[]) {
   Solution solution;
   std::vector<std::string> test_case;
-  test_case.push_back("");
-  test_case.push_back("2");
   test_case.push_back("23");
+  test_case.push_back("2");
+  test_case.push_back("");
   for (const auto& item : test_case) {
+    std::cout << item << " letter combination:";
     auto ans = solution.letterCombinations(item);
     for (const auto& i : ans) {
       std::cout << i << ",";
