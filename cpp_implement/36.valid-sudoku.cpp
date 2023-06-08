@@ -74,12 +74,22 @@
 #include <vector>
 
 // @lc code=start
+/**
+ * 优化方案 1：获取 sub_board_index 不适用单独的方法，直接结算就可以
+ * 优化方案 2：通过使用二维数组代替二维的 vector，可以有效的提高性能
+ * */
 class Solution {
  public:
   bool isValidSudoku(std::vector<std::vector<char>>& board) {
-    std::vector<std::vector<bool>> row_flag(9, std::vector<bool>(9, false));
-    std::vector<std::vector<bool>> col_flag(9, std::vector<bool>(9, false));
-    std::vector<std::vector<bool>> square_flag(9, std::vector<bool>(9, false));
+    //    std::vector<std::vector<bool>> row_flag(9, std::vector<bool>(9, false));
+    //    std::vector<std::vector<bool>> col_flag(9, std::vector<bool>(9, false));
+    //    std::vector<std::vector<bool>> square_flag(9, std::vector<bool>(9, false));
+    bool row_flag[9][9];
+    bool col_flag[9][9];
+    bool sub_board_flag[9][9];
+    memset(row_flag, 0, 81);
+    memset(col_flag, 0, 81);
+    memset(sub_board_flag, 0, 81);
     for (int i = 0; i < 9; ++i) {
       for (int j = 0; j < 9; ++j) {
         if (board[i][j] != '.') {
@@ -94,47 +104,16 @@ class Solution {
           } else {
             col_flag[num][j] = true;
           }
-          int square_num = GetSquareNumber(i, j);
-          if (square_flag[square_num][num]) {
+          int sub_board_num = (i / 3) * 3 + (j / 3);
+          if (sub_board_flag[sub_board_num][num]) {
             return false;
           } else {
-            square_flag[square_num][num] = true;
+            sub_board_flag[sub_board_num][num] = true;
           }
         }
       }
     }
     return true;
-  }
- private:
-  int GetSquareNumber(int m, int n) {
-    if (n < 3) {
-      // 0 ~ 2
-      if (m < 3) {
-        return 0;
-      } else if (m < 6) {
-        return 1;
-      } else {
-        return 2;
-      }
-    } else if (n < 6) {
-      // 3 ~ 5
-      if (m < 3) {
-        return 3;
-      } else if (m < 6) {
-        return 4;
-      } else {
-        return 5;
-      }
-    } else {
-      // 6 ~ 8
-      if (m < 3) {
-        return 6;
-      } else if (m < 6) {
-        return 7;
-      } else {
-        return 8;
-      }
-    }
   }
 };
 
