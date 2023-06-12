@@ -24,9 +24,7 @@
  * The test cases are generated such that the number of unique combinations
  * that sum up to target is less than 150 combinations for the given input.
  *
- *
  * Example 1:
- *
  *
  * Input: candidates = [2,3,6,7], target = 7
  * Output: [[2,2,3],[7]]
@@ -60,9 +58,73 @@
 #include "integer_utils.h"
 
 // @lc code=start
+/**
+ * 解法 1：使用暴力枚举的方式遍历所有的组合，然后判断结果是否等于 target,这种方式的时间复杂度太高了
+ * 解法 2：要想办法优化上面的算法，第一进行排序
+ * 对于这类寻找所有可行解的题，我们都可以尝试用「搜索回溯」的方法来解决。
+ * */
 class Solution {
  public:
-  std::vector<std::vector<int>> combinationSum(std::vector<int>& candidates, int target) {}
+  std::vector<std::vector<int>> combinationSum(std::vector<int>& candidates, int target) {
+    std::vector<std::vector<int>> ans;
+    // sort candidates
+    std::sort(candidates.begin(), candidates.end());
+    std::vector<int> combination;
+    OPTDFS(candidates, target, 0, combination, ans);
+    return ans;
+  }
+
+ private:
+  void DFS(std::vector<int>& candidates, int target, int index, std::vector<int>& combination,
+           std::vector<std::vector<int>>& ans) {
+    if (index == candidates.size()) {
+      // search the end of candidates
+      return;
+    }
+    if (target == 0) {
+      ans.emplace_back(combination);
+      return;
+    }
+    // do not jump index element
+    if (target - candidates[index] >= 0) {
+      combination.emplace_back(candidates[index]);
+      DFS(candidates, target - candidates[index], index, combination, ans);
+      combination.pop_back();
+    }
+    // jump index element
+    DFS(candidates, target, index + 1, combination, ans);
+  }
+  /**
+   * 主要通过将数组进行排序，再加上对边界条件的检查的改善进行剪枝，进一步的优化性能
+   *
+   * */
+  void OPTDFS(std::vector<int>& candidates, int target, int index, std::vector<int>& combination,
+              std::vector<std::vector<int>>& ans) {
+    if (index == candidates.size()) {
+      return;
+    }
+    if (target == 0) {
+      ans.push_back(combination);
+      return;
+    }
+    if (target < candidates[index]) {
+      return;
+    }
+    if (target == candidates[index]) {
+      combination.push_back(candidates[index]);
+      ans.push_back(combination);
+      combination.pop_back();
+      return;
+    }
+    if (target - candidates[index] >= candidates[index]) {
+      // does not jump index element
+      combination.push_back(candidates[index]);
+      OPTDFS(candidates, target - candidates[index], index, combination, ans);
+      combination.pop_back();
+    }
+    // jump the index element
+    OPTDFS(candidates, target, index + 1, combination, ans);
+  }
 };
 // @lc code=end
 
@@ -72,14 +134,15 @@ int main(int argc, char* argv[]) {
   std::vector<int> targets;
   test_case.push_back("[2,3,6,7]");
   targets.push_back(7);
-  test_case.push_back("[2,3,5]");
-  targets.push_back(8);
-  test_case.push_back("[2]");
-  targets.push_back(1);
+  //  test_case.push_back("[2,3,5]");
+  //  targets.push_back(8);
+  //  test_case.push_back("[2]");
+  //  targets.push_back(1);
   for (int i = 0; i < test_case.size(); ++i) {
-    std::cout << test_case[i] << " " << targets[i] << " ";
+    std::cout << "candidates: " << test_case[i] << " target:" << targets[i] << " ";
     auto candidates   = StringToIntegerVector(test_case[i]);
     auto combinations = solution.combinationSum(candidates, targets[i]);
+    std::cout << " combinations:  ";
     for (const auto& item : combinations) {
       std::string message = "[";
       for (const auto& iter : item) {
