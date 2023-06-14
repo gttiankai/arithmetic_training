@@ -46,10 +46,9 @@
  * 1 <= candidates.length <= 100
  * 1 <= candidates[i] <= 50
  * 1 <= target <= 30
- *
- *
  */
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -58,7 +57,43 @@
 // @lc code=start
 class Solution {
  public:
-  std::vector<std::vector<int>> combinationSum2(std::vector<int>& candidates, int target) {}
+  std::vector<std::vector<int>> combinationSum2(std::vector<int>& candidates, int target) {
+    std::vector<std::vector<int>> ans;
+    std::sort(candidates.begin(), candidates.end());
+    // special case
+    if (target < candidates[0]) {
+      return ans;
+    }
+    std::vector<int> combination;
+    DFS(candidates, target, 0, combination, ans);
+    return ans;
+  }
+
+ private:
+  void DFS(std::vector<int>& candidates, int target, int index, std::vector<int>& combination,
+           std::vector<std::vector<int>>& ans) {
+    // keypoint: 首先判断是否等于 target
+    // bad case: candidates:[1, 2, 2, 5], target: 5. 当尝试元素 '5' 时,如果不先判断,就会漏掉这个情况
+    if (target == 0) {
+      ans.push_back(combination);
+      return;
+    }
+    if (index == candidates.size()) {
+      return;
+    }
+    if (target < candidates[index]) {
+      return;
+    }
+    for (int i = index; i < candidates.size() && target - candidates[i] >= 0; ++i) {
+      // keypoint: 下面的判断是通用的去重的好方法
+      if (i > index && candidates[i] == candidates[i - 1]) {
+        continue;
+      }
+      combination.push_back(candidates[i]);
+      DFS(candidates, target - candidates[i], i + 1, combination, ans);
+      combination.pop_back();
+    }
+  }
 };
 // @lc code=end
 
@@ -87,6 +122,5 @@ int main(int argc, char* argv[]) {
     }
     std::cout << std::endl;
   }
-  return 0;
   return 0;
 }

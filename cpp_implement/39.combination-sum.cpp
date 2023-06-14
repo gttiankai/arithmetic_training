@@ -134,10 +134,10 @@ int main(int argc, char* argv[]) {
   std::vector<int> targets;
   test_case.push_back("[2,3,6,7]");
   targets.push_back(7);
-  //  test_case.push_back("[2,3,5]");
-  //  targets.push_back(8);
-  //  test_case.push_back("[2]");
-  //  targets.push_back(1);
+    test_case.push_back("[2,3,5]");
+    targets.push_back(8);
+    test_case.push_back("[2]");
+    targets.push_back(1);
   for (int i = 0; i < test_case.size(); ++i) {
     std::cout << "candidates: " << test_case[i] << " target:" << targets[i] << " ";
     auto candidates   = StringToIntegerVector(test_case[i]);
