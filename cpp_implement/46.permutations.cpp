@@ -50,7 +50,29 @@ class Solution {
  public:
   std::vector<std::vector<int>> permute(std::vector<int>& nums) {
     std::vector<std::vector<int>> ans;
+    auto N = nums.size();
+    std::vector<bool> flags(N, false);
+    std::vector<int> permutation;
+    BackTrack(nums, flags, permutation, ans);
     return ans;
+  }
+
+ private:
+  void BackTrack(std::vector<int>& nums, std::vector<bool>& flags, std::vector<int>& permutation,
+                 std::vector<std::vector<int>>& ans) {
+    if (permutation.size() == nums.size()) {
+      ans.push_back(permutation);
+      return;
+    }
+    for (int i = 0; i < nums.size(); ++i) {
+      if (!flags[i]) {
+        flags[i] = true;
+        permutation.push_back(nums[i]);
+        BackTrack(nums, flags, permutation, ans);
+        permutation.pop_back();
+        flags[i] = false;
+      }
+    }
   }
 };
 // @lc code=end
@@ -59,14 +81,14 @@ int main(int argc, char* argv[]) {
   Solution solution;
   std::vector<std::string> test_test;
   test_test.push_back("[1,2,3]");
-  test_test.push_back("[0,1]");
+  //test_test.push_back("[0,1]");
   for (int i = 0; i < test_test.size(); ++i) {
     std::cout << test_test[i] << " permute: ";
     auto nums = StringToIntegerVector(test_test[i]);
     auto ans  = solution.permute(nums);
     for (int j = 0; j < ans.size(); ++j) {
       std::string message = "[";
-      for (const auto& iter : ans[i]) {
+      for (const auto& iter : ans[j]) {
         message += std::to_string(iter) + ", ";
       }
       message += "] ";
