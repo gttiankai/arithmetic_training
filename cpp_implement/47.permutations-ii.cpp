@@ -13,7 +13,7 @@
  * Total Submissions: 704.9K
  * Testcase Example:  '[1,1,2]'
  *
- * Given a collection of numbers, nums, that might contain duplicates, return
+ * Given a collection of numbers, nums,that might contain duplicates, return
  * all possible unique permutations in any order.
  *
  *
@@ -23,8 +23,8 @@
  * Input: nums = [1,1,2]
  * Output:
  * [[1,1,2],
- * ⁠[1,2,1],
- * ⁠[2,1,1]]
+ * [1,2,1],
+ * [2,1,1]]
  *
  *
  * Example 2:
@@ -48,6 +48,10 @@
 #include <vector>
 #include "integer_utils.h"
 // @lc code=start
+/**
+ * 这个题目的重点是如何处理重复的问题
+ *
+ * */
 class Solution {
  public:
   std::vector<std::vector<int>> permuteUnique(std::vector<int>& nums) {
@@ -67,9 +71,16 @@ class Solution {
       return;
     }
     for (int i = 0; i < nums.size(); ++i) {
+#if 0
       if ((i > index) && nums[i - 1] == nums[i]) {
         continue;
       }
+#else
+      // below code is key point
+      if (i > 0 && nums[i] == nums[i - 1] && !flags[i - 1]) {
+        continue;
+      }
+#endif
       if (!flags[i]) {
         flags[i] = true;
         permutation.push_back(nums[i]);
