@@ -31,3 +31,5 @@ AlignConsecutiveAssignments: Consecutive
 
 # 尽量将函数声明的参数放在同一行: 禁用
 AllowShortFunctionsOnASingleLine: Empty
+
+IndentWidth: 4
