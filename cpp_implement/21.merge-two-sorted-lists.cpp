@@ -20,31 +20,19 @@
  *
  * Return the head of the merged linked list
  *
- *
  * Example 1:
- *
- *
  * Input: list1 = [1,2,4], list2 = [1,3,4]
  * Output: [1,1,2,3,4,4]
  *
- *
  * Example 2:
- *
- *
  * Input: list1 = [], list2 = []
  * Output: []
  *
- *
  * Example 3:
- *
- *
  * Input: list1 = [], list2 = [0]
  * Output: [0]
  *
- *
- *
  * Constraints:
- *
  *
  * The number of nodes in both lists is in the range [0, 50].
  * -100 <= Node.val <= 100
@@ -60,49 +48,6 @@
 #include <vector>
 #include "list_node.h"
 
-/**
-    这个版本的实现是正确的,但是实现的不够优雅,太丑了
- */
-class SolutionUgly {
- public:
-  ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-    ListNode* root = nullptr;
-    if (list1 == nullptr) {
-      return list2;
-    } else if (list2 == nullptr) {
-      return list1;
-    }
-    // list1 != nullptr && list2 != nullptr
-    if (list1->val <= list2->val) {
-      root  = list1;
-      list1 = list1->next;
-    } else {
-      root  = list2;
-      list2 = list2->next;
-    }
-    ListNode* guard = root;
-    while (list1 != nullptr || list2 != nullptr) {
-      if (list1 == nullptr) {
-        guard->next = list2;
-        break;
-      } else if (list2 == nullptr) {
-        guard->next = list1;
-        break;
-      } else {
-        if (list1->val <= list2->val) {
-          guard->next = list1;
-          guard       = guard->next;
-          list1       = list1->next;
-        } else {
-          guard->next = list2;
-          guard       = guard->next;
-          list2       = list2->next;
-        }
-      }
-    }
-    return root;
-  }
-};
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -114,34 +59,31 @@ class SolutionUgly {
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-
 class Solution {
- public:
-  ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-    ListNode pre_node(-1);
-    ListNode* guard = &pre_node;
-
-    while (list1 != nullptr && list2 != nullptr) {
-      if (list1->val <= list2->val) {
-        guard->next = list1;
-        guard       = guard->next;
-        list1       = list1->next;
-      } else {
-        guard->next = list2;
-        guard       = guard->next;
-        list2       = list2->next;
-      }
+   public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode guard(-101);
+        ListNode* ans = &guard;
+        ListNode* p   = ans;
+        while (list1 != nullptr && list2 != nullptr) {
+            if (list1->val <= list2->val) {
+                p->next = list1;
+                p       = p->next;
+                list1   = list1->next;
+            } else {
+                p->next = list2;
+                p       = p->next;
+                list2   = list2->next;
+            }
+        }
+        if (list1 != nullptr) {
+            p->next = list1;
+        } else {
+            p->next = list2;
+        }
+        return ans->next;
     }
-    if (list1 == nullptr) {
-      guard->next = list2;
-    } else {
-      guard->next = list1;
-    }
-    return pre_node.next;
-  }
 };
-// TODO: 实现递归版本
-// TODO: 实现迭代的版本
 // @lc code=end
 
 int main(int argc, char* argv[]) {
