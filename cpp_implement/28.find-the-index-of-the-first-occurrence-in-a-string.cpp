@@ -42,6 +42,31 @@
 // @lc code=start
 class Solution {
    public:
+    /**
+     * 时间复杂度: O(m*n)
+     *      haystack.size(): m
+     *      needle.size(): n
+     * 空间复杂度:
+     *      O(1)
+     * */
+    int strStrSlow(std::string haystack, std::string needle) {
+        int index = -1;
+        if (needle.size() > haystack.size()) {
+            return index;
+        }
+        int n = needle.size();
+        for (int i = 0; i < haystack.size() - n + 1; ++i) {
+            if (needle == haystack.substr(i, n)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+    /**
+     * KMP 算法
+     *
+     * */
     int strStr(std::string haystack, std::string needle) {
         int index = -1;
         if (needle.size() > haystack.size()) {
