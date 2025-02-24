@@ -17,7 +17,6 @@
  * occurrence of needle in haystack, or -1 if needle is not part of
  * haystack.
  *
- *
  * Example 1:
  * Input: haystack = "sadbutsad", needle = "sad"
  * Output: 0
@@ -68,18 +67,10 @@ class Solution {
      *
      * */
     int strStr(std::string haystack, std::string needle) {
-        int index = -1;
-        if (needle.size() > haystack.size()) {
-            return index;
-        }
-        int n = needle.size();
-        for (int i = 0; i < haystack.size() - n + 1; ++i) {
-            if (needle == haystack.substr(i, n)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
+    }
+
+   private:
+    std::vector<int> BuildNext(std::string& needle) {
     }
 };
 // @lc code=end
@@ -94,6 +85,8 @@ int main(int argc, char* argv[]) {
     needles.push_back("leeto");
     haystackes.push_back("a");
     needles.push_back("a");
+    haystackes.push_back("hello");
+    needles.push_back("ll");
     for (int i = 0; i < haystackes.size(); ++i) {
         std::cout << haystackes[i] << " " << needles[i] << " " << solution.strStr(haystackes[i], needles[i])
                   << std::endl;
