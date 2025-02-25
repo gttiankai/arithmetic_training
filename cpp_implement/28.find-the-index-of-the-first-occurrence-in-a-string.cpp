@@ -67,10 +67,45 @@ class Solution {
      *
      * */
     int strStr(std::string haystack, std::string needle) {
+        std::vector<int> next = BuildNext(needle);
+        int i                 = 0;
+        int j                 = 0;
+        while (i < haystack.size()) {
+            if (haystack[i] == needle[j]) {
+                i++;
+                j++;
+            } else if (j > 0) {
+                j = next[j - 1];
+            } else {
+                i++;
+            }
+            if (j == needle.size()) {
+                return i - j;
+            }
+        }
+        return -1;
     }
 
    private:
     std::vector<int> BuildNext(std::string& needle) {
+        std::vector<int> next(needle.size());
+        next[0] = 0;
+        // prefix_len 一定是公共最长前后缀的长度
+        int prefix_len = 0;
+        int i          = 1;
+        while (i < needle.size()) {
+            if (needle[prefix_len] == needle[i]) {
+                prefix_len++;
+                next[i] = prefix_len;
+                i++;
+            } else if (prefix_len == 0) {
+                next[i] = 0;
+                i++;
+            } else {
+                prefix_len = next[prefix_len - 1];
+            }
+        }
+        return next;
     }
 };
 // @lc code=end
@@ -79,14 +114,18 @@ int main(int argc, char* argv[]) {
     Solution solution;
     std::vector<std::string> haystackes;
     std::vector<std::string> needles;
-    haystackes.push_back("sadbutsad");
-    needles.push_back("sad");
-    haystackes.push_back("leetcode");
-    needles.push_back("leeto");
-    haystackes.push_back("a");
-    needles.push_back("a");
+    haystackes.push_back("ababcaababcaabc");
+    needles.push_back("ababcaabc");
     haystackes.push_back("hello");
     needles.push_back("ll");
+    haystackes.push_back("aaaaa");
+    needles.push_back("bba");
+    haystackes.push_back("leetcode");
+    needles.push_back("leeto");
+    haystackes.push_back("sadbutsad");
+    needles.push_back("sad");
+    haystackes.push_back("a");
+    needles.push_back("a");
     for (int i = 0; i < haystackes.size(); ++i) {
         std::cout << haystackes[i] << " " << needles[i] << " " << solution.strStr(haystackes[i], needles[i])
                   << std::endl;
