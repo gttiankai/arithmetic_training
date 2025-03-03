@@ -48,9 +48,9 @@
 class Solution {
    public:
     /**
-    * 时间复杂度: O(m + n)
-    * 空间复杂度: O(m + n)
-    */
+     * 时间复杂度: O(m + n)
+     * 空间复杂度: O(m + n)
+     */
     void merge(std::vector<int>& nums1, int m, std::vector<int>& nums2, int n) {
         // m != 0 and n != 0
         std::vector<int> ans(m + n);

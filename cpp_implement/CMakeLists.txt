@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer -g -O0")
 set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 # file(GLOB files *.cc *.cpp)
 file(GLOB_RECURSE files *.cc *.cpp)
