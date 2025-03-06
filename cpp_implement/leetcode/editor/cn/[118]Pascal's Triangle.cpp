@@ -36,7 +36,7 @@ class Solution {
             row_value[0]     = 1;
             row_value[i - 1] = 1;
             for (int j = 1; j < i - 1; j++) {
-              
+              // 这个位置是容易出错的地方, dp[i-2], 为什么要减 2 ? 这个问题要好好的记住
                 row_value[j] = dp[i - 2][j - 1] + dp[i - 2][j];
             }
             dp.push_back(row_value);
