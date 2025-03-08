@@ -44,7 +44,11 @@
 // leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
    public:
-    int maxProfit(std::vector<int>& prices) {
+    /**
+     * 时间复杂度 O(N!) 这个题目使用动态规划的方法去做的话是超时的
+     *
+     ***/
+    int maxProfitSlow(std::vector<int>& prices) {
         if (prices.empty()) {
             return 0;
         }
@@ -54,8 +58,27 @@ class Solution {
         for (int i = 1; i < n; ++i) {
             int max_profit = INT_MIN;
             for (int j = 0; j < i; j++) {
+                // 这个地方是是可以优化的,不需要每次都从 0 计算到 i 的 max profit,只需要将 i 之前的
+                // 最低的价格记载下来就可以了.
                 max_profit = std::max(max_profit, prices[i] - prices[j]);
             }
+            dp[i] = std::max(dp[i - 1], max_profit);
+        }
+        return dp[n - 1];
+    }
+    int maxProfit(std::vector<int>& prices) {
+        if (prices.empty()) {
+            return 0;
+        }
+        int n = prices.size();
+        std::vector<int> dp(n);
+        dp[0] = 0;
+        int max_profit = INT_MIN;
+        int lowest_price = prices[0];
+        for (int i = 1; i < n; ++i) {
+            lowest_price = std::min(lowest_price, prices[i]);
+            int profit = prices[i] - lowest_price;
+            max_profit = std::max(max_profit, profit);
             dp[i] = std::max(dp[i - 1], max_profit);
         }
         return dp[n - 1];
@@ -65,6 +88,6 @@ class Solution {
 
 int main(int argc, char* argv[]) {
     Solution solution;
-    std::vector<int> prices = {7,1,5,3,6,4};
+    std::vector<int> prices = {7, 1, 5, 3, 6, 4};
     std::cout << solution.maxProfit(prices) << std::endl;
 }
