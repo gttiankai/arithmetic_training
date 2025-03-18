@@ -26,24 +26,74 @@
 // O(1) space?
 //
 
-#include <unordered_set>
-#include <vector>
+#include <algorithm>
 #include <iostream>
+#include <unordered_map>
+#include <vector>
 
 // leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
    public:
-    int majorityElement(std::vector<int>& nums) {
-        std::unordered_set<int> nums_set;
+    /**
+     * 使用 hash_map 进行解决就很简单
+     ***/
+    int majorityElementHashMap(std::vector<int>& nums) {
+        std::unordered_map<int, int> map;
         int m = nums.size() / 2;
         for (int i = 0; i < nums.size(); ++i) {
-            nums_set.insert(nums[i]);
-            int count = nums_set.count(nums[i]);
-            if (count > m) {
+            map[nums[i]]++;
+            if (map[nums[i]] > m) {
                 return nums[i];
             }
         }
         return 0;
+    }
+    /**
+     * 如果将所有的元素进行排序,因为众数的个数超过了一般,所以排序数组中间位置的数肯定是众数
+     ***/
+    int majorityElement(std::vector<int>& nums) {
+        // sort the nums
+        // 快排算法
+        QuickSort(nums, 0, nums.size()-1);
+        return nums[nums.size()/2];
+    }
+
+   private:
+    void QuickSort(std::vector<int>& nums, int low, int hight) {
+        if (low >= hight) {
+            return;
+        }
+        int j = Partition(nums, low, hight);
+        QuickSort(nums, low, j - 1);
+        QuickSort(nums, j + 1, hight);
+    }
+    int Partition(std::vector<int>& nums, int low, int hight) {
+        int i = low;
+        int j = hight + 1;
+        int v = nums[low];
+        while (true) {
+            while (nums[++i] < v) {
+                if (i == hight) {
+                    break;
+                }
+            }
+            while (v < nums[--j]) {
+                if (j == low) {
+                    break;
+                }
+            }
+            if (i >= j) {
+                break;
+            }
+            swap(&nums[i], &nums[j]);
+        }
+        swap(&nums[low], &nums[j]);
+        return j;
+    }
+    void swap(int* a, int* b) {
+        int c = *a;
+        *a    = *b;
+        *b    = c;
     }
 };
 // leetcode submit region end(Prohibit modification and deletion)
