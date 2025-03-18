@@ -26,13 +26,33 @@
 // O(1) space?
 //
 
+#include <unordered_set>
 #include <vector>
+#include <iostream>
 
 // leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
    public:
     int majorityElement(std::vector<int>& nums) {
-        
+        std::unordered_set<int> nums_set;
+        int m = nums.size() / 2;
+        for (int i = 0; i < nums.size(); ++i) {
+            nums_set.insert(nums[i]);
+            int count = nums_set.count(nums[i]);
+            if (count > m) {
+                return nums[i];
+            }
+        }
+        return 0;
     }
 };
 // leetcode submit region end(Prohibit modification and deletion)
+int main(int argc, char* argv[]) {
+    Solution solution;
+    std::vector<std::vector<int>> test_cases({{3, 2, 3}, {2, 2, 1, 1, 1, 2, 2}});
+    for (auto& case_ : test_cases) {
+        int majority_element = solution.majorityElement(case_);
+        std::cout << "majority element is:" << majority_element << std::endl;
+    }
+    return 0;
+}
