@@ -31,10 +31,7 @@
 //
 //  Example 2:
 //
-//
 //  Input: s = "wordgoodgoodgoodbestword", words = ["word","good","best","word"]
-//
-//
 //
 //  Output: []
 //
@@ -70,11 +67,13 @@
 //  Related Topics 哈希表 字符串 滑动窗口 👍 1209 👎 0
 #include <iostream>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 // leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
    public:
-    std::vector<int> findSubstring(std::string s, std::vector<std::string>& words) {
+    std::vector<int> findSubstringWrong(std::string s, std::vector<std::string>& words) {
         std::vector<int> ans;
         int m = s.size();
         int n = words.size();
@@ -101,11 +100,70 @@ class Solution {
         }
         return ans;
     }
+    /***
+        下面的方案是我自己实现的,但是性能比较差,直接超时了,需要修改下面的代码,进行提速
+     **/
+    std::vector<int> findSubstring(std::string s, std::vector<std::string>& words) {
+        int m = s.size();
+        int n = words.size();
+        int k = words[0].size();
+        if (m < n * k) {
+            return std::vector<int>();
+        }
+        /**
+          针对 s 进行滑动窗口, 找到所有的子串,看这些子串是否是串联子串
+         **/
+        int window = n * k;
+        std::vector<std::string> sub_string_array;
+        for (int i = 0; i <= m - window; i++) {
+            sub_string_array.push_back(s.substr(i, window));
+        }
+        // 构建包含所有 word 的 hash_map 以便于后面的判断串联子串
+        std::unordered_map<std::string, int> words_map;
+        for (auto word : words) {
+            words_map[word]++;
+        }
+        std::unordered_set<int> ans_set;
+        for (auto& sub_string : sub_string_array) {
+            if (IsConcatedSubString(words_map, k, sub_string)) {
+                int pos = 0;
+                while(s.find(sub_string, pos) != std::string::npos) {
+                    pos = s.find(sub_string, pos);
+                    // 为什么要用 set 是因为串联子串在 s 中可能有多个多处,这个做
+                    // 的目的是为了出去重复
+                    ans_set.insert(pos);
+                    pos++;
+                }
+            }
+        }
+        return std::vector<int>(ans_set.begin(), ans_set.end());
+    }
+   private:
+    bool IsConcatedSubString(std::unordered_map<std::string, int> words_map, int k, std::string sub_str) {
+        for (int i = 0; i < sub_str.size(); i += k) {
+            std::string word = sub_str.substr(i, k);
+            if (words_map.find(word) == words_map.end()) {
+                return false;
+            }
+            words_map[word]--;
+            if (words_map[word] == 0) {
+                words_map.erase(words_map.find(word));
+            }
+        }
+        if (words_map.empty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 };
 // leetcode submit region end(Prohibit modification and deletion)
+
 int main(int argc, char* argv[]) {
-    std::vector<std::string> case_for_s                  = {"barfoofoobarthefoobarman", "wordgoodgoodgoodbestword"};
-    std::vector<std::vector<std::string>> case_for_words = {{"bar", "foo", "the"}, {"word", "good", "best", "word"}};
+    std::vector<std::string> case_for_s                  = {"barfoothefoobarman", "wordgoodgoodgoodbestword",
+                                                            "barfoofoobarthefoobarman", "foobarfoobar"};
+    std::vector<std::vector<std::string>> case_for_words = {
+        {"bar", "foo"}, {"word", "good", "best", "good"}, {"bar", "foo", "the"}, {"foo", "bar"}};
     Solution solution;
     for (int i = 0; i < case_for_s.size(); i++) {
         std::vector<int> ans = solution.findSubstring(case_for_s[i], case_for_words[i]);
