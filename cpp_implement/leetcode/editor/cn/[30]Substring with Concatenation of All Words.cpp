@@ -54,9 +54,7 @@
 // concatenation of ["bar","the","foo"]. The substring starting at 12 is "thefoobar". It is
 // the concatenation of ["the","foo","bar"].
 //
-//
 //  Constraints:
-//
 //
 //  1 <= s.length <= 10⁴
 //  1 <= words.length <= 5000
@@ -65,6 +63,7 @@
 //
 //
 //  Related Topics 哈希表 字符串 滑动窗口 👍 1209 👎 0
+#include <_ctype.h>
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -103,7 +102,7 @@ class Solution {
     /***
         下面的方案是我自己实现的,但是性能比较差,直接超时了,需要修改下面的代码,进行提速
      **/
-    std::vector<int> findSubstring(std::string s, std::vector<std::string>& words) {
+    std::vector<int> findSubstringSlow(std::string s, std::vector<std::string>& words) {
         int m = s.size();
         int n = words.size();
         int k = words[0].size();
@@ -127,7 +126,7 @@ class Solution {
         for (auto& sub_string : sub_string_array) {
             if (IsConcatedSubString(words_map, k, sub_string)) {
                 int pos = 0;
-                while(s.find(sub_string, pos) != std::string::npos) {
+                while (s.find(sub_string, pos) != std::string::npos) {
                     pos = s.find(sub_string, pos);
                     // 为什么要用 set 是因为串联子串在 s 中可能有多个多处,这个做
                     // 的目的是为了出去重复
@@ -138,6 +137,7 @@ class Solution {
         }
         return std::vector<int>(ans_set.begin(), ans_set.end());
     }
+
    private:
     bool IsConcatedSubString(std::unordered_map<std::string, int> words_map, int k, std::string sub_str) {
         for (int i = 0; i < sub_str.size(); i += k) {
@@ -156,12 +156,86 @@ class Solution {
             return false;
         }
     }
+
+   public:
+    std::vector<int> findSubstringSlowTwo(std::string s, std::vector<std::string>& words) {
+        std::vector<int> ans;
+        int m = s.length();
+        int n = words.size();
+        int k = words[0].length();
+        if (m < n * k) {
+            return ans;
+        }
+        // 构建子串的 hash_map 结构
+        std::unordered_map<std::string, int> total;
+        for (auto word : words) {
+            total[word]++;
+        }
+        for (int i = 0; i < m - (n * k) + 1; ++i) {
+            std::unordered_map<std::string, int> window;
+            int count = 0;
+            for (int j = i; j < i + n * k; j += k) {
+                std::string word = s.substr(j, k);
+                if (total.find(word) == total.end()) {
+                    break;
+                }
+                window[word]++;
+                if (window[word] > total[word]) break;
+                ;
+                count++;
+            }
+            if (count == n) {
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+    /**
+     * 下面的考虑的是如何进行提速
+     ***/
+    std::vector<int> findSubstring(std::string s, std::vector<std::string>& words) {
+        std::vector<int> ans;
+        int m = s.length();
+        int n = words.size();
+        int k = words[0].length();
+        if (m < n * k) {
+            return ans;
+        }
+        // 构建子串的 hash_map 结构
+        std::unordered_map<std::string, int> total;
+        for (const auto& word : words) {
+            total[word]++;
+        }
+        // 最多只有 K 中不同的分割方式
+        for (int i = 0; i < k; ++i) {
+            std::unordered_map<std::string, int> window;
+            int count = 0;
+            for (int j = i; j <= m - k; j += k) {
+                if (j - i >= n * k) {
+                    std::string word = s.substr(j - n * k, k);
+                    window[word]--;
+                    if (window[word] < total[word]) {
+                        count--;
+                    }
+                }
+                std::string word = s.substr(j, k);
+                window[word]++;
+                if (window[word] <= total[word]) {
+                    count++;
+                }
+                if (count == n) {
+                    ans.push_back(j - (n - 1) * k);
+                }
+            }
+        }
+        return ans;
+    }
 };
 // leetcode submit region end(Prohibit modification and deletion)
 
 int main(int argc, char* argv[]) {
-    std::vector<std::string> case_for_s                  = {"barfoothefoobarman", "wordgoodgoodgoodbestword",
-                                                            "barfoofoobarthefoobarman", "foobarfoobar"};
+    std::vector<std::string> case_for_s = {"barfoothefoobarman", "wordgoodgoodgoodbestword", "barfoofoobarthefoobarman",
+                                           "foobarfoobar"};
     std::vector<std::vector<std::string>> case_for_words = {
         {"bar", "foo"}, {"word", "good", "best", "good"}, {"bar", "foo", "the"}, {"foo", "bar"}};
     Solution solution;
