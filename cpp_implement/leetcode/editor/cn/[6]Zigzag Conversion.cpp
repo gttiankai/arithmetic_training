@@ -53,7 +53,7 @@
 // leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
    public:
-    std::string convert(std::string s, int numRows) {
+    std::string convertSlow(std::string s, int numRows) {
         if (numRows == 1) return s;
         std::string ans;
         int mode = 2 * numRows - 2;
@@ -76,7 +76,7 @@ class Solution {
     /**
      * 使用直接计算的方式能够更快的解决这个问题
      ***/
-    std::string convertFaster(std::string s, int numRows) {
+    std::string convert(std::string s, int numRows) {
         if (numRows == 1) return s;
         std::string ans;
         int mode = 2 * numRows - 2;
