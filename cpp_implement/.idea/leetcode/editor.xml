@@ -146,6 +146,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[16]3Sum Closest.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[16]3Sum Closest.md" />
+              <option name="frontendQuestionId" value="leetcode.cn16" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[16]3Sum Closest.cpp" />
+              <option name="titleSlug" value="3sum-closest" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[171]Excel Sheet Column Number.cpp">
           <value>
             <LeetcodeEditor>
