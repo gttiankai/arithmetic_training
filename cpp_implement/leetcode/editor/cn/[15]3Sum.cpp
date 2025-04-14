@@ -61,7 +61,7 @@ class Solution {
             }
             int k = n - 1;
             for (int j = i + 1; j < n - 1; j++) {
-                if (j != 1 && nums[j] == nums[j - 1]) {
+                if (j != i + 1 && nums[j] == nums[j - 1]) {
                     continue;
                 }
                 while (j < k) {
@@ -72,6 +72,7 @@ class Solution {
                         break;
                     }
                 }
+                // 找个地方有可能出现 j==k 的情况,这种情况下是要直接跳过的
                 if (j == k) {
                     break;
                 }
