@@ -39,7 +39,51 @@
 // leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
    public:
-    std::vector<std::vector<int>> fourSum(std::vector<int>& nums, int target) {
+    std::vector<std::vector<int>> fourSum(std::vector<int>& nums,
+                                             int target) {
+        std::vector<std::vector<int>> ans;
+        int n = nums.size();
+        if (n < 4) {
+            return ans;
+        }
+        std::sort(nums.begin(), nums.end());
+        for (int i = 0; i < n - 3; i++) {
+            if (i != 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            for (int j = i + 1; j < n - 2; j++) {
+                if (j != i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
+                int k = j + 1;
+                int m = n - 1;
+                while (k < m) {
+                    long long sum =
+                        (long long)nums[i] + nums[j] + nums[k] + nums[m];
+                    if (sum == target) {
+                        ans.push_back({nums[i], nums[j], nums[k], nums[m]});
+                        while (k < m && nums[k] == nums[k + 1]) {
+                            // 跳过重复的元素
+                            k++;
+                        }
+                        k++;
+                        while (k < m && nums[m] == nums[m - 1]) {
+                            // 跳过重复的元素
+                            m--;
+                        }
+                        m--;
+                    } else if (sum < target) {
+                        k++;
+                    } else {
+                        m--;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+
+    std::vector<std::vector<int>> fourSumSlow(std::vector<int>& nums, int target) {
         std::vector<std::vector<int>> ans;
         int n = nums.size();
         if (n < 4) {
