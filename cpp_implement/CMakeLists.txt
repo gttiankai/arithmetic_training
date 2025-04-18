@@ -7,9 +7,11 @@ set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-# file(GLOB files *.cc *.cpp)
-file(GLOB_RECURSE files *.cc *.cpp)
-foreach (file ${files})
+# 步骤 1：递归收集所有文件
+file(GLOB_RECURSE all_files *.cc *.cpp)
+# 步骤 2：过滤掉以 "." 开头的文件名
+list(FILTER all_files EXCLUDE REGEX "^.*/\\..+\\.(cpp|cc)$")
+foreach (file ${all_files})
     string(REGEX REPLACE ".+/(.+)\\..*" "\\1" exe ${file})
     string(REPLACE " " "_" exe "${exe}")
     string(REPLACE "[" "" exe "${exe}")
