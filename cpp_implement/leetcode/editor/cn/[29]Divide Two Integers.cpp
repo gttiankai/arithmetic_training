@@ -61,7 +61,8 @@ class Solution {
             divisor = -divisor;
         }
         while (dividend <= divisor) {
-            // 变成减法的原因是 INT 的负数值域比正数的值域大一个,用于处理 INT_MIN 的情况
+            // 变成减法的原因是 INT 的负数值域比正数的值域大一个,用于处理
+            // INT_MIN 的情况
             ans--;
             dividend -= divisor;
         }
@@ -76,9 +77,8 @@ class Solution {
     bool CheckSign(int dividend, int divisor) {
         if ((dividend >= 0 and divisor > 0) || (dividend <= 0 && divisor < 0)) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 };
 // leetcode submit region end(Prohibit modification and deletion)
