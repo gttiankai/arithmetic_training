@@ -56,7 +56,10 @@
 //
 //
 //  Related Topics 数组 双指针 👍 2678 👎 0
+#include <algorithm>
 #include <iostream>
+#include <iterator>
+#include <regex>
 #include <vector>
 // leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
@@ -82,14 +85,44 @@ class Solution {
             std::reverse(nums.begin(), nums.end());
         }
     }
-    void nextPermutation(std::vector<int>& nums) {}
+    void nextPermutation(std::vector<int>& nums) {
+        int n = nums.size();
+        int i = n - 2;
+        while (i >= 0) {
+            if (nums[i] < nums[i + 1]) {
+                break;
+            }
+            i--;
+        }
+        if (i == -1) {
+            std::reverse(nums.begin(), nums.end());
+            return;
+        }
+        int j = n - 1;
+        while (j > i) {
+            if (nums[i] < nums[j]) {
+                break;
+            }
+            j--;
+        }
+        swap(nums[i], nums[j]);
+        // key point 要从 i+1 的位置开始,如果从 i 的位置开始的话会将 i 的位置改变,
+        std::sort(nums.begin() + i + 1, nums.end());
+    }
+
+   private:
+    void swap(int& a, int& b) {
+        int tmp = a;
+        a       = b;
+        b       = tmp;
+    }
 };
 // leetcode submit region end(Prohibit modification and deletion)
 
 int main(int argc, char* argv[]) {
     Solution solution;
     std::vector<std::vector<int>> test_case = {
-        {1, 2, 3}, {2, 3, 1}, {3, 2, 1}, {1, 3, 2}};
+        {4, 5, 2, 6, 3, 1}, {1, 2, 3}, {2, 3, 1}, {3, 2, 1}, {1, 3, 2}};
     for (auto case_ : test_case) {
         solution.nextPermutation(case_);
         std::cout << "[ ";
