@@ -32,11 +32,14 @@
 // leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
    public:
+    /**
+     * 下面的算法是比较慢的
+     * 时间复杂度:
+     **/
     std::string multiply(std::string num1, std::string num2) {
+        if (num1 == "0" || num2 == "0") return "0";
         int M = num1.length();
         int N = num2.length();
-        if (M == 1 && num1[0] == '0') return "0";
-        if (N == 1 && num2[0] == '0') return "0";
         std::string ans;
         for (int i = M - 1; i >= 0; i--) {
             std::string product;
@@ -106,7 +109,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < test_case_nums1.size(); ++i) {
         std::string num1 = test_case_nums1[i];
         std::string num2 = test_case_nums2[i];
-        std::string ans = solution.multiply(num1, num2);
+        std::string ans  = solution.multiply(num1, num2);
         std::cout << num1 << " x " << num2 << " = " << ans << std::endl;
     }
 }
