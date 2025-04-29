@@ -43,7 +43,7 @@ class Solution {
     /**
      * 实现了一个很慢的版本,有没有办法进行加速
      ***/
-    double myPow(double x, int n) {
+    double myPowSlow(double x, int n) {
         double power  = 1;
         bool negative = n < 0 ? true : false;
         n             = std::abs(n);
@@ -54,6 +54,31 @@ class Solution {
             power = 1 / power;
         }
         return power;
+    }
+    /**
+     * 下面实现的就是一个快速幂的实现
+     * 时间复杂度: O(logN)
+     *
+     *
+     ***/
+    double myPow(double x, int n) {
+        bool negative = n < 0 ? true : false;
+        long long N = std::abs((long long)n);
+        double power   = QuickMul(x, N);
+
+        if (negative) {
+            power = 1 / power;
+        }
+        return power;
+    }
+
+   private:
+    double QuickMul(double x, long long N) {
+        if (N == 0) {
+            return 1.0;
+        }
+        double y = QuickMul(x, N / 2);
+        return N % 2 == 0 ? y * y : y * y * x;
     }
 };
 // leetcode submit region end(Prohibit modification and deletion)
