@@ -44,7 +44,7 @@ class Solution {
     int uniquePaths(int m, int n) {
         // 使用动态规划
         // 假设dp[i][j] 为到达 i,j 位置的需要的步数
-        if ((m == 1 && n == 1) || (m == 1 && n == 2) || (m == 2 && n == 1)) {
+        if (m == 1 && n == 1) {
             return 1;
         }
 
