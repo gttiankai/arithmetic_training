@@ -45,7 +45,7 @@ class Solution {
         for (int i = 1; i < n; ++i) {
             int start = intervals[i][0];
             int end   = intervals[i][1];
-            if (right >= start) {
+            if (start <= right) {
                 // 要选相对更大的那个
                 right = std::max(right, end);
             }else {
