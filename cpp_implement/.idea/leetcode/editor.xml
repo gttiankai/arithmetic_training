@@ -597,6 +597,28 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[73]Set Matrix Zeroes.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[73]Set Matrix Zeroes.md" />
+              <option name="frontendQuestionId" value="leetcode.cn73" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[73]Set Matrix Zeroes.cpp" />
+              <option name="titleSlug" value="set-matrix-zeroes" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[74]Search a 2D Matrix.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[74]Search a 2D Matrix.md" />
+              <option name="frontendQuestionId" value="leetcode.cn74" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[74]Search a 2D Matrix.cpp" />
+              <option name="titleSlug" value="search-a-2d-matrix" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[7]Reverse Integer.cpp">
           <value>
             <LeetcodeEditor>
