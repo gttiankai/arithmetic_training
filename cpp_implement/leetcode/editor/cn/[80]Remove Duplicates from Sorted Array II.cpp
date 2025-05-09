@@ -63,15 +63,54 @@
 //
 //
 //  Related Topics 数组 双指针 👍 1262 👎 0
+#include <iostream>
 #include <vector>
 
 // leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
    public:
-    int removeDuplicates(std::vector<int>& nums) {
+    int removeDuplicatesComplex(std::vector<int>& nums) {
         int n = nums.size();
         int k = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0, j = 0; j < n;) {
+            while (j < n && nums[i] == nums[j]) {
+                j++;
+            }
+            if (j - i >= 2) {
+                nums[k]     = nums[i];
+                nums[k + 1] = nums[i];
+                k += 2;
+            } else {
+                nums[k] = nums[i];
+                k++;
+            }
+            i = j;
         }
-    };
-    // leetcode submit region end(Prohibit modification and deletion)
+        return k;
+    }
+    int removeDuplicates(std::vector<int>& nums) {
+        return work(nums, 2);
+    }
+
+   private:
+    int work(std::vector<int>& nums, int k) {
+        int len = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (len < 2 || nums[len - k] != nums[i]) {
+                nums[len] = nums[i];
+                len++;
+            }
+        }
+        return len;
+    }
+};
+// leetcode submit region end(Prohibit modification and deletion)
+
+int main(int argc, char* argv[]) {
+    std::vector<int> nums = {1, 1, 1, 2, 2, 3, 4, 4};
+    Solution solution;
+    int k = solution.removeDuplicates(nums);
+    for (int i = 0; i < k; i++) {
+        std::cout << nums[i] << " ";
+    }
+}
