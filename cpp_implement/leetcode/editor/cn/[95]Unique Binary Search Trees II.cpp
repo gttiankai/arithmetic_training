@@ -27,6 +27,7 @@
 //
 //
 //  Related Topics 树 二叉搜索树 动态规划 回溯 二叉树 👍 1615 👎 0
+#include <iostream>
 #include <vector>
 #include "tree_node.h"
 
@@ -45,7 +46,12 @@
  */
 class Solution {
    public:
-    std::vector<TreeNode*> generateTrees(int n) {
+    /**
+     * 下面的解法有问题,添加节点之后后面再删除,导致最后 ans
+     * 中的二叉树只有一个根节点
+     * 下面的方案的完全不能修改
+     ***/
+    std::vector<TreeNode*> generateTreesWrong(int n) {
         if (n == 1) {
             return {new TreeNode(1)};
         }
@@ -61,6 +67,8 @@ class Solution {
     }
 
    private:
+    // 下面的解法是从上到下构建一棵树,但是 root 下面有两种不同的形式,这就导致了不能正确的解决
+    // 题目
     void BackTracking(std::vector<TreeNode*>& ans, int n, TreeNode* root,
                       std::vector<bool>& flags, int count) {
         if (count == n) {
@@ -110,10 +118,45 @@ class Solution {
             }
         }
     }
+
+   public:
+    std::vector<TreeNode*> generateTrees(int n) {
+        if (n == 1) {
+            return {new TreeNode(1)};
+        }
+        return BackTracking(1, n);
+    }
+
+   private:
+    std::vector<TreeNode*> BackTracking(int start, int end) {
+        if (start > end) {
+            return {nullptr};
+        }
+        // 第二个隐藏你的点, 这个 ans 并不通过参数传递到底层,这就保证了上面的解法的 root
+        // 由于传递到叶子结点,导致出现问题的现象
+        std::vector<TreeNode*> ans;
+        for (int i = start; i <= end; i++) {
+            std::vector<TreeNode*> left_trees  = BackTracking(start, i - 1);
+            std::vector<TreeNode*> right_trees = BackTracking(i + 1, end);
+            for (const auto& left : left_trees) {
+                for (const auto& right : right_trees) {
+                    // 第一个精妙的点, 从叶子到根部创建每一个节点
+                    TreeNode* root = new TreeNode(i);
+                    root->left     = left;
+                    root->right    = right;
+                    ans.emplace_back(root);
+                }
+            }
+        }
+        return ans;
+    }
 };
 // leetcode submit region end(Prohibit modification and deletion)
 
 int main(int argc, char* argv[]) {
     Solution solution;
     auto ans = solution.generateTrees(3);
+    for (auto root : ans) {
+        std::cout << TreeNodeToString(root) << std::endl;
+    }
 }
