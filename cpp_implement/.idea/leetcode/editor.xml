@@ -245,6 +245,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[241]Different Ways to Add Parentheses.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[241]Different Ways to Add Parentheses.md" />
+              <option name="frontendQuestionId" value="leetcode.cn241" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[241]Different Ways to Add Parentheses.cpp" />
+              <option name="titleSlug" value="different-ways-to-add-parentheses" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[24]Swap Nodes in Pairs.cpp">
           <value>
             <LeetcodeEditor>
