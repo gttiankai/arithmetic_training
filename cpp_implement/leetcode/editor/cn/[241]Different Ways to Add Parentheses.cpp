@@ -48,8 +48,7 @@
 class Solution {
    public:
     std::vector<int> diffWaysToCompute(std::string expression) {
-
-        
+        std::vector<int> ans;
     }
 };
 // leetcode submit region end(Prohibit modification and deletion)
