@@ -57,6 +57,7 @@
 // space?
 //
 //  Related Topics 字符串 动态规划 👍 1112 👎 0
+#include <iostream>
 #include <string>
 
 // leetcode submit region begin(Prohibit modification and deletion)
@@ -98,5 +99,68 @@ class Solution {
             return false;
         }
     }
+    bool isInterleaveComplex(std::string s1, std::string s2, std::string s3) {
+        if (s1 == "") {
+            return s2 == s3;
+        }
+        if (s2 == "") {
+            return s1 == s3;
+        }
+        int m = s1.length();
+        int n = s2.length();
+        int k = s3.length();
+        if (m + n != k) {
+            return false;
+        }
+        auto dp = std::vector<std::vector<bool>>(
+            m + 1, std::vector<bool>(n + 1, false));
+        dp[0][0] = true;
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                int p = i + j - 1;
+                if (i > 0 && s1[i - 1] == s3[p]) {
+                    dp[i][j] = dp[i][j] || dp[i - 1][j];
+                }
+                if (j > 0 && s2[j - 1] == s3[p]) {
+                    dp[i][j] = dp[i][j] || dp[i][j - 1];
+                }
+            }
+        }
+        return dp[m][n];
+    }
+    bool isInterleave(std::string s1, std::string s2, std::string s3) {
+        int m = s1.length();
+        int n = s2.length();
+        int k = s3.length();
+        if (m + n != k) {
+            return false;
+        }
+        // dp[j] 表示用 s1 的前 i 个字符和 s2 的前 j 个字符是否能交错组成 s3
+        // 的前 i+j 个字符。
+        auto dp = std::vector<bool>(n + 1, false);
+        dp[0]   = true;
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                int p = i + j - 1;
+                if (i > 0) {
+                    dp[j] = dp[j] && (s1[i - 1] == s3[p]);
+                }
+                if (j > 0) {
+                    dp[j] = dp[j] || (dp[j - 1] && s2[j - 1] == s3[p]);
+                }
+            }
+        }
+        return dp[n];
+    }
 };
 // leetcode submit region end(Prohibit modification and deletion)
+
+int main(int argc, char *argv[]) {
+    std::string s1 = "aabcc";
+    std::string s2 = "dbbca";
+    std::string s3 = "aadbbcbcac";
+    Solution solution;
+    auto ans = solution.isInterleave(s1, s2, s3);
+    std::cout << ans << std::endl;
+    std::cout << solution.isInterleave(s1, s2, s3);
+}
