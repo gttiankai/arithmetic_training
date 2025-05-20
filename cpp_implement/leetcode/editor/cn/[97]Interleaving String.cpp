@@ -128,7 +128,11 @@ class Solution {
         }
         return dp[m][n];
     }
-    bool isInterleave(std::string s1, std::string s2, std::string s3) {
+    /**
+     * 这个省空间的方法不是很好理解,后面要结合题目进行处理
+     *
+      **/
+    bool isInterleaveSimple(std::string s1, std::string s2, std::string s3) {
         int m = s1.length();
         int n = s2.length();
         int k = s3.length();
@@ -152,6 +156,44 @@ class Solution {
         }
         return dp[n];
     }
+    /**
+     * 下面的实现比较好理解,后面遇到类似的题目,就业可以这样处理
+     *
+     ***/
+    bool isInterleave(std::string s1, std::string s2, std::string s3) {
+        int m = s1.length();
+        int n = s2.length();
+        int k = s3.length();
+        if (m + n != k) {
+            return false;
+        }
+        auto dp = std::vector<std::vector<bool>>(
+            m + 1, std::vector<bool>(n + 1, false));
+        dp[0][0] = true;
+        for (int i = 1; i <= m; i++) {
+            if (s1[i - 1] == s3[i - 1]) {
+                dp[i][0] = true;
+            } else {
+                break;
+            }
+        }
+        for (int i = 1; i <= n; i++) {
+            if (s2[i - 1] == s3[i - 1]) {
+                dp[0][i] = true;
+            } else {
+                break;
+            }
+        }
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                // 为什么是 s1[i - 1] == s3[i + j - 1] ?
+                // s1 的实际意义和 s1 的编号存在 -1 的关系
+                dp[i][j] = (dp[i - 1][j] && s1[i - 1] == s3[i + j - 1]) ||
+                           (dp[i][j - 1] && s2[j - 1] == s3[i + j - 1]);
+            }
+        }
+        return dp[m][n];
+    }
 };
 // leetcode submit region end(Prohibit modification and deletion)
 
@@ -159,8 +201,8 @@ int main(int argc, char *argv[]) {
     std::string s1 = "aabcc";
     std::string s2 = "dbbca";
     std::string s3 = "aadbbcbcac";
+    // std::string s3 = "aadbbbaccc";
     Solution solution;
     auto ans = solution.isInterleave(s1, s2, s3);
     std::cout << ans << std::endl;
-    std::cout << solution.isInterleave(s1, s2, s3);
 }
