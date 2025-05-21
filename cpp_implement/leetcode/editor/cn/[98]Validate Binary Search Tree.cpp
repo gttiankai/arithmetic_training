@@ -56,7 +56,7 @@ class Solution {
    public:
     bool isValidBST(TreeNode* root) {
         std::vector<int> nums;
-        PreOrderTraversal(root, nums);
+        InOrderTraversal(root, nums);
         int n = nums.size();
         for (int i = 0; i < n - 1; i++) {
             if (nums[i] >= nums[i + 1]) {
@@ -67,13 +67,13 @@ class Solution {
     }
 
    private:
-    void PreOrderTraversal(TreeNode* root, std::vector<int>& nums) {
+    void InOrderTraversal(TreeNode* root, std::vector<int>& nums) {
         if (root == nullptr) {
             return;
         }
-        PreOrderTraversal(root->left, nums);
+        InOrderTraversal(root->left, nums);
         nums.push_back(root->val);
-        PreOrderTraversal(root->right, nums);
+        InOrderTraversal(root->right, nums);
     }
 };
 // leetcode submit region end(Prohibit modification and deletion)
