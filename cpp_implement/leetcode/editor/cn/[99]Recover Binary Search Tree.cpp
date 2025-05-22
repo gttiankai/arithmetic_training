@@ -133,6 +133,7 @@ class Solution {
     TreeNode* large = nullptr;
     TreeNode* small = nullptr;
 };
+#include <algorithm>
 // leetcode submit region end(Prohibit modification and deletion)
 int main(int argc, char* argv[]) {
     Solution solution;
