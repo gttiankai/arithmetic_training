@@ -61,7 +61,7 @@ class Solution {
      * 空间复杂度:
      *      O(n)
      ***/
-    void recoverTreeOn(TreeNode* root) {
+    void recoverTreeNormal(TreeNode* root) {
         std::vector<TreeNode*> nodes;
         InOrderTraversal(root, nodes);
         int start = -1;
@@ -92,11 +92,10 @@ class Solution {
     /**
      * 时间复杂度:
      *      遍历部分: O(log(N))
-     *      总体的时间复杂度: O(1)
      * 空间复杂度:
      *      O(n)
      ***/
-    void recoverTree(TreeNode* root) {
+    void recoverTreeOn(TreeNode* root) {
         InOrderTraversal(root);
         if (large != nullptr && small != nullptr) {
             std::swap(large->val, small->val);
@@ -129,15 +128,69 @@ class Solution {
     }
     // 下面三个参数必须作为私有变量存在,如果使用指针作为参数,在递归子函数中赋值,
     // 并不会影响上一级的参数
+   private:
     TreeNode* pre   = nullptr;
     TreeNode* large = nullptr;
     TreeNode* small = nullptr;
+
+   public:
+    void recoverTree(TreeNode* root) {
+        TreeNode* cur       = root;
+        TreeNode* rightmost = nullptr;
+        while (cur != nullptr) {
+            if (cur->left != nullptr) {
+                rightmost = cur->left;
+                while (rightmost->right != nullptr && rightmost->right != cur) {
+                    rightmost = rightmost->right;
+                }
+                if (rightmost->right == nullptr) {
+                    rightmost->right = cur;
+                    // pre              = cur;
+                    cur = cur->left;
+                } else {
+                    // rightmost->right == cur
+                    /**
+                     * 遍历节点对节点进行处理的关键位置
+                     ***/
+                    if (pre->val > cur->val) {
+                        small = cur;
+                        if (large == nullptr) {
+                            large = pre;
+                        }
+                    }
+                    pre              = cur;
+                    rightmost->right = nullptr;
+                    cur              = cur->right;
+                }
+            } else {
+                /**
+                 * 遍历节点的关键位置
+                 ***/
+                if (pre != nullptr && pre->val > cur->val) {
+                    small = cur;
+                    if (large == nullptr) {
+                        large = pre;
+                    }
+                }
+                pre = cur;
+                cur = cur->right;
+            }
+        }
+        std::swap(large->val, small->val);
+    }
 };
 #include <algorithm>
 // leetcode submit region end(Prohibit modification and deletion)
 int main(int argc, char* argv[]) {
     Solution solution;
-    auto root = StringToTreeNode(
+    std::vector<std::string> test_case;
+    test_case.push_back(
         "[146,71,-13,55,null,231,399,321,null,null,null,null,null,-33]");
-    solution.recoverTree(root);
+    test_case.push_back("[4,6,2,1,3,5,7]");
+    for (auto& item : test_case) {
+        auto root = StringToTreeNode(item);
+        std::cout << TreeNodeToString(root) << std::endl;
+        solution.recoverTree(root);
+        std::cout << TreeNodeToString(root) << std::endl;
+    }
 }

@@ -191,28 +191,28 @@ class Solution {
     std::vector<int> findMode(TreeNode* root) {
         // 下面的就是典型的 Morris 的实现
         TreeNode* cur = root;
-        TreeNode* pre = nullptr;
-        while (cur) {
-            if (cur->left == nullptr) {
-                updata(cur->val);
-                cur = cur->right;
-                continue;
-            }
-            // cur->left != nullptr
-            pre = cur->left;
-            while (pre->right != nullptr && pre->right != cur) {
-                pre = pre->right;
-            }
-            if (pre->right == nullptr) {
-                pre->right = cur;
+        TreeNode* rightmost = nullptr;
 
-                // 粗心的写法: cur = pre->left;
-                cur = cur->left;
+        while (cur != nullptr) {
+            if (cur -> left != nullptr) {
+                rightmost = cur->left;
+                while (rightmost->right != nullptr && rightmost->right != cur) {
+                    rightmost = rightmost->right;
+                }
+                if (rightmost->right == nullptr) {
+                    rightmost->right = cur;
+                    cur = cur -> left;
+                } else {
+                    // rightmost->right == cur
+                    updata(cur -> val);
+                    rightmost->right = nullptr;
+                    cur = cur->right;
+                }
+
             } else {
-                // pre->right == cur
-                pre->right = nullptr;
-                updata(cur->val);
-                cur = cur->right;
+                // 叶子节点
+                updata(cur -> val);
+                cur = cur -> right;
             }
         }
         return ans;
