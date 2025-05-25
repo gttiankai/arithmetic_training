@@ -69,6 +69,28 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[108]Convert Sorted Array to Binary Search Tree.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[108]Convert Sorted Array to Binary Search Tree.md" />
+              <option name="frontendQuestionId" value="leetcode.cn108" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[108]Convert Sorted Array to Binary Search Tree.cpp" />
+              <option name="titleSlug" value="convert-sorted-array-to-binary-search-tree" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[109]Convert Sorted List to Binary Search Tree.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[109]Convert Sorted List to Binary Search Tree.md" />
+              <option name="frontendQuestionId" value="leetcode.cn109" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[109]Convert Sorted List to Binary Search Tree.cpp" />
+              <option name="titleSlug" value="convert-sorted-list-to-binary-search-tree" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[11]Container With Most Water.cpp">
           <value>
             <LeetcodeEditor>
