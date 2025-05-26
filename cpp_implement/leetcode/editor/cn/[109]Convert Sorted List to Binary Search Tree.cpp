@@ -79,7 +79,7 @@ class Solution {
         root->right = BuildTree(mid->next, right);
         return root;
     }
-    // 下面的快慢指针法是关键点s
+    // 下面的快慢指针法是这个解法的关键点
     ListNode* GetMiddle(ListNode* left, ListNode* right) {
         ListNode* slow = left;
         ListNode* fast = left;
@@ -112,7 +112,15 @@ class Solution {
     }
 
    private:
-    TreeNode* BuildTree(ListNode* head, int left, int right) {
+    /**
+     * TreeNode* BuildTreeWrong(ListNode* head, int left, int right)
+     * 上面是错误的实现,错误的关键点是 Head 的指针,如果只传递指针, head 在递归调用中只会在
+     * 子递归函数中更新,并不会影响到父递归函数,所以起不到更新 head 头指针的目的.
+     * 所以只有传递的事 Head 指针的引用,子递归函数中对 head 的修改,才会影响到父递归函数中的
+     * head 指针
+     ***/
+
+    TreeNode* BuildTree(ListNode*& head, int left, int right) {
         if (left > right) {
             return nullptr;
         }
