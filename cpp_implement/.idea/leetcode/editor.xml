@@ -113,6 +113,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[116]Populating Next Right Pointers in Each Node.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[116]Populating Next Right Pointers in Each Node.md" />
+              <option name="frontendQuestionId" value="leetcode.cn116" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[116]Populating Next Right Pointers in Each Node.cpp" />
+              <option name="titleSlug" value="populating-next-right-pointers-in-each-node" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[11]Container With Most Water.cpp">
           <value>
             <LeetcodeEditor>
