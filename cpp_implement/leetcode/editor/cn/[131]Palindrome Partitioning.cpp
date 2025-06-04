@@ -13,7 +13,6 @@
 //
 //  Constraints:
 //
-//
 //  1 <= s.length <= 16
 //  s contains only lowercase English letters.
 //
@@ -42,6 +41,8 @@ class Solution {
         // 注意下面遍历的顺讯, 要先遍历 i, 再遍历 j, 也就是要先遍历 row, 再遍历
         // col, 也是因为递推公式: dp[i][j] = dp[i+1][j-1] && s[i] == s[j]
         // dp[i][j] 依赖于左下方的dp[i+1][j-1]
+        // 下面的实现中 (i + 1 >= j - 1) 表示只有 i+1 >= j-1 才有实际意义,要不然
+        // dp[i+1][j-1] 没有实际的意义
         for (int j = 0; j < n; ++j) {
             for (int i = 0; i < n; ++i) {
                 if (i == j) {
@@ -51,6 +52,21 @@ class Solution {
                     // 当 i + 1 ==  j - 1, 表示
                     dp[i][j] =
                         (s[i] == s[j]) && (i + 1 >= j - 1 || dp[i + 1][j - 1]);
+                }
+            }
+        }
+        // 下面的实现更有意义
+        for (int j = 0; j < n; ++j) {
+            // key point i <= j
+            for (int i = 0; i < j; ++i) {
+                if (i == j) {
+                    dp[i][j] = true;
+                } else if (i + 1 == j) {
+                    dp[i][j] = (s[i] == s[j]);
+                } else {
+                    // i+1 <= j - 1 ----> i <= j - 2
+                    // 其实 i + 1 == j 是 i+1 <= j-1 的特殊情况
+                    dp[i][j] = (s[i] == s[j]) && (dp[i + 1][j - 1]);
                 }
             }
         }
