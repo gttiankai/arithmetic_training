@@ -100,7 +100,7 @@ public:
 
 class Solution {
    public:
-    Node* cloneGraph(Node* node) {
+    Node* cloneGraphComplex(Node* node) {
         if (node == nullptr) {
             return nullptr;
         }
@@ -140,6 +140,28 @@ class Solution {
                 }
                 new_node->neighbors = new_neighbors;
             }
+        }
+        return root;
+    }
+
+   private:
+    // map[node] = clone_node
+    std::unordered_map<Node*, Node*> map;
+
+   public:
+    // 使用 DFS 的实现好简单
+    // depth search first
+    Node* cloneGraph(Node* node) {
+        if (node == nullptr) {
+            return nullptr;
+        }
+        if (map.find(node) != map.end()) {
+            return map[node];
+        }
+        Node* root = new Node(node->val);
+        map[node]  = root;
+        for (auto& neighbor : node->neighbors) {
+            root->neighbors.push_back(cloneGraph(neighbor));
         }
         return root;
     }
