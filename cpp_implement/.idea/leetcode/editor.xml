@@ -322,6 +322,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[138]Copy List with Random Pointer.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[138]Copy List with Random Pointer.md" />
+              <option name="frontendQuestionId" value="leetcode.cn138" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[138]Copy List with Random Pointer.cpp" />
+              <option name="titleSlug" value="copy-list-with-random-pointer" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[141]Linked List Cycle.cpp">
           <value>
             <LeetcodeEditor>
