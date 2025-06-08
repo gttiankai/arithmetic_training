@@ -9,6 +9,7 @@
 // index if you can travel around the circuit once in the clockwise direction,
 // otherwise return -1. If there exists a solution, it is guaranteed to be
 // unique.
+
 //
 //
 //  Example 1:
@@ -81,7 +82,7 @@ class Solution {
             }
         }
         for (auto& start : start_stattions) {
-            if (Complete(gas, cost, start)) {
+            if (CompleteTimeLimit(gas, cost, start)) {
                 return start;
             }
         }
@@ -89,7 +90,8 @@ class Solution {
     }
 
    private:
-    bool Complete(std::vector<int>& gas, std::vector<int>& cost, int start) {
+    bool CompleteTimeLimit(std::vector<int>& gas, std::vector<int>& cost,
+                           int start) {
         int n         = gas.size();
         int carry_gas = gas[start];
         for (int i = 1; i <= n; i++) {
@@ -101,8 +103,42 @@ class Solution {
         }
         return true;
     }
-public:
+
+   public:
+    /**
+     * 时间复杂度: O(n)
+     * 空间复杂度: O(1)
+     * 关键点:
+     *      假设从 i 出发,最远只能到达  j, 那么从 [i,j] 之间的任意一个站点 k 出发,
+     *      能够到达的最远距离不会超过 j, 因为从 i 站点出发,到达 k 站点的时,携带的汽
+     *      油量肯定是 >=0 的,要不然 从 i 站点不可能到达 k 站点的.所以可以从 0 号站
+     *      出发,统计能够到达的最远的站点 j .
+     ***/
     int canCompleteCircuit(std::vector<int>& gas, std::vector<int>& cost) {
+        int n = gas.size();
+        for (int i = 0; i < n;) {
+            int end = Complete(gas, cost, i);
+            if (end == n) {
+                return i;
+            }
+            i = i + end + 1;
+        }
+        return -1;
+    }
+
+   private:
+    int Complete(std::vector<int>& gas, std::vector<int>& cost, int start) {
+        int n         = gas.size();
+        int carry_gas = gas[start];
+        for (int i = 1; i <= n; i++) {
+            int index    = (start + i - 1) % n;
+            int need_gas = cost[index];
+            if (need_gas > carry_gas) {
+                return i - 1;
+            }
+            carry_gas = carry_gas - need_gas + gas[(start + i) % n];
+        }
+        return n;
     }
 };
 // leetcode submit region end(Prohibit modification and deletion)
