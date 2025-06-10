@@ -377,6 +377,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[143]Reorder List.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[143]Reorder List.md" />
+              <option name="frontendQuestionId" value="leetcode.cn143" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[143]Reorder List.cpp" />
+              <option name="titleSlug" value="reorder-list" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[144]Binary Tree Preorder Traversal.cpp">
           <value>
             <LeetcodeEditor>
