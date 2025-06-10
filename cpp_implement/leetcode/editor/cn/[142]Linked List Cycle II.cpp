@@ -65,14 +65,32 @@ class Solution {
      * 下面的题目有一种很直接的解法:
      * 解法一:
      *     使用一个 std::unordered_set 记录已经访问过的 ListNode ,每次访问新的
-     *     ListNode 时,首先在 set 中查找,该 ListNode 是否已经存在,如果没有存在,将
-     *     该节点 insert 到 set 中,如果第一次出现 set 中已经存在的节点,那么这个节
-     *     点就是我们要找的循环开始的节点
+     *     ListNode 时,首先在 set 中查找,该 ListNode
+     *是否已经存在,如果没有存在,将 该节点 insert 到 set 中,如果第一次出现 set
+     *中已经存在的节点,那么这个节 点就是我们要找的循环开始的节点
      * 由于题目中有进一步的要求: 空间复杂度: O(1) ,解法 1 的空间复杂度为: O(n)
      * 解法二:
      *     可以看下题目中的解题思路, 这个思路完全是数学推理
      **/
     ListNode* detectCycle(ListNode* head) {
+        ListNode* fast = head;
+        ListNode* slow = head;
+        while (fast != nullptr) {
+            slow = slow->next;
+            if (fast->next == nullptr) {
+                return nullptr;
+            }
+            fast = fast->next->next;
+            if (slow == fast) {
+                ListNode* pre = head;
+                while (pre != slow) {
+                    pre  = pre->next;
+                    slow = slow->next;
+                }
+                return pre;
+            }
+        }
+        return nullptr;
     }
 };
 // leetcode submit region end(Prohibit modification and deletion)
