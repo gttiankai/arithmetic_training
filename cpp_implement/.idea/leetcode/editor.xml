@@ -388,6 +388,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[147]Insertion Sort List.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[147]Insertion Sort List.md" />
+              <option name="frontendQuestionId" value="leetcode.cn147" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[147]Insertion Sort List.cpp" />
+              <option name="titleSlug" value="insertion-sort-list" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[15]3Sum.cpp">
           <value>
             <LeetcodeEditor>
