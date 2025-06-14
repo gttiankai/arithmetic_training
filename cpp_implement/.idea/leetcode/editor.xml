@@ -432,6 +432,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[148]Sort List.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[148]Sort List.md" />
+              <option name="frontendQuestionId" value="leetcode.cn148" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[148]Sort List.cpp" />
+              <option name="titleSlug" value="sort-list" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/[15]3Sum.cpp">
           <value>
             <LeetcodeEditor>
