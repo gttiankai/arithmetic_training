@@ -82,9 +82,9 @@ class Solution {
             }
         }
         ListNode* mid = slow;
-        return merget(sortList(head, mid), sortList(mid, tail));
+        return merge(sortList(head, mid), sortList(mid, tail));
     }
-    ListNode* merget(ListNode* head1, ListNode* head2) {
+    ListNode* merge(ListNode* head1, ListNode* head2) {
         ListNode* dummy_head = new ListNode(0);
         ListNode* cur        = dummy_head;
         ListNode* p1         = head1;
@@ -108,17 +108,17 @@ class Solution {
     }
 
    public:
-    // 自底往上
+    // 自底往上进行排序
     ListNode* sortList(ListNode* head) {
         if (head == nullptr || head->next == nullptr) {
             return head;
         }
-        int size         = getSize(head);
-        auto dummy_head  = new ListNode(0);
-        dummy_head->next = head;
-        for (int sub_len = 1; sub_len <= size; sub_len *= 2) {
-            ListNode* prev = dummy_head;
-            ListNode* cur  = dummy_head->next;
+        int size             = getSize(head);
+        ListNode* dummy_head = new ListNode(0);
+        dummy_head->next     = head;
+        for (int sub_len = 1; sub_len <= size; sub_len <<= 1) {
+            ListNode* pre = dummy_head;
+            ListNode* cur = dummy_head->next;
             while (cur != nullptr) {
                 ListNode* head1 = cur;
                 for (int i = 1; i < sub_len && cur->next != nullptr; i++) {
@@ -137,15 +137,14 @@ class Solution {
                     next      = cur->next;
                     cur->next = nullptr;
                 }
-                ListNode* merged = merget(head1, head2);
-                prev->next       = merged;
-                while (prev->next != nullptr) {
-                    prev = prev->next;
+                cur                   = next;
+                ListNode* merged_list = merge(head1, head2);
+                pre->next             = merged_list;
+                while (pre->next != nullptr) {
+                    pre = pre->next;
                 }
-                cur = next;
             }
         }
-
         return dummy_head->next;
     }
 
